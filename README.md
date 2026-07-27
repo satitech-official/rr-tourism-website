@@ -1,99 +1,45 @@
-# RR Tourism – Travel & Tour Website
+﻿# RR Tourism Website
 
-RR Tourism is a modern, responsive, and user-friendly tourism website designed to help travellers explore destinations, discover affordable tour packages, and easily connect with the RR Tourism team for customized trip planning.
+![RR Tourism Website Preview](assets/rr-tourism-social-preview.jpg)
 
-The website provides complete information about destinations, travel services, packages, accommodations, transportation, sightseeing, and booking enquiries.
+## Live Website
 
-## About RR Tourism
+Visit the live website here:
 
-RR Tourism is a trusted travel and tourism service based in Mhow, Madhya Pradesh. We provide comfortable, affordable, and well-planned travel experiences for individuals, families, students, groups, institutions, and corporate travellers.
+[https://satitech-official.github.io/rr-tourism-website/](https://satitech-official.github.io/rr-tourism-website/)
 
-Our goal is to make every journey smooth, safe, enjoyable, and memorable. From destination selection to transportation, accommodation, meals, sightseeing, and complete itinerary planning, RR Tourism takes care of every important travel requirement.
+## About
 
-## Website Features
+RR Tourism is a premium, colorful, responsive travel and tourism website for RR Tourism, based in Mhow, Indore, Madhya Pradesh.
 
-* Modern and responsive website design
-* Attractive tourism-focused user interface
-* Mobile, tablet, laptop, and desktop compatibility
-* Domestic and international tour packages
-* Detailed destination information
-* Customized travel package enquiries
-* WhatsApp enquiry integration
-* Direct calling functionality
-* Tour itinerary and package details
-* Hotel and accommodation information
-* Transportation and sightseeing details
-* Customer reviews and testimonials
-* Image gallery with destination categories
-* Travel offers and featured packages
-* Frequently asked questions
-* Contact and enquiry form
-* Google Maps integration
-* Social media integration
-* Smooth scrolling and animations
-* Search-engine-friendly website structure
-* Fast-loading and optimized pages
+The website helps visitors explore domestic and international tour packages, popular destinations, holy trips, honeymoon packages, customized trip planning, gallery photos, reviews, booking enquiries, and direct WhatsApp contact.
 
-## Main Sections
+## Key Features
 
-### Home
+* Fully responsive design for mobile, tablet, laptop, and desktop
+* Premium bright travel-inspired UI
+* Hero section with autoplay travel background video
+* Domestic and international tour package sections
+* Holy places and international holy trips
+* Dynamic package cards and filters
+* Gallery with travel memories
+* Customer reviews and FAQ sections
+* Booking enquiry and customized trip planner forms
+* Contact section with phone, WhatsApp, email, and map
+* Floating WhatsApp button
+* Smooth scrolling, animations, hover effects, and micro-interactions
+* GitHub Pages deployment workflow
 
-The homepage introduces RR Tourism, featured destinations, popular travel packages, services, customer reviews, special offers, and important calls to action.
+## Live Preview
 
-### About Us
+![RR Tourism Live Preview](mobile-menu-check.png)
 
-This section provides information about RR Tourism, its travel expertise, mission, values, services, and commitment to customer satisfaction.
+## Contact
 
-### Tour Packages
+**RR Tourism**  
+Mhow, Indore, Madhya Pradesh
 
-Visitors can explore available tour packages with information such as:
-
-* Destination
-* Duration
-* Tour itinerary
-* Accommodation
-* Transportation
-* Meals
-* Sightseeing
-* Package inclusions
-* Package exclusions
-* Pricing
-* Booking enquiry
-
-### Destinations
-
-The destination section showcases popular tourist locations with images, travel highlights, attractions, and important trip information.
-
-### Services
-
-RR Tourism provides services including:
-
-* Customized tour planning
-* Family tour packages
-* Group tours
-* Student and educational tours
-* Corporate tours
-* Hotel booking assistance
-* Transportation arrangements
-* Local sightseeing
-* Pickup and drop services
-* Complete travel itinerary planning
-
-### Gallery
-
-The gallery displays high-quality photographs of destinations, tours, sightseeing locations, hotels, activities, and memorable travel experiences.
-
-### Reviews
-
-This section presents customer feedback and travel experiences to build trust and help new travellers understand the quality of RR Tourism’s services.
-
-### Contact Us
-
-Visitors can contact RR Tourism through phone, WhatsApp, email, or the website enquiry form.
-
-## Contact Information
-
-**Phone Numbers**
+**Phone**
 
 * +91 90090 71697
 * +91 83493 94939
@@ -104,178 +50,39 @@ Visitors can contact RR Tourism through phone, WhatsApp, email, or the website e
 
 **Email**
 
-* [rrtourisminfo@gmail.com](mailto:rrtourisminfo@gmail.com)
-
-**Location**
-
-Mhow, Madhya Pradesh, India
-
-## Tour Categories
-
-The website can showcase different types of travel packages, including:
-
-* Family Tours
-* Group Tours
-* Educational Tours
-* School Trips
-* Adventure Tours
-* Religious Tours
-* Honeymoon Packages
-* Weekend Trips
-* Corporate Tours
-* Domestic Tours
-* International Tours
-* Customized Tour Packages
-
-## Featured Destinations
-
-Some featured destinations may include:
-
-* Nepal
-* Goa
-* Udaipur
-* Indore
-* Rajasthan
-* Madhya Pradesh
-* Himachal Pradesh
-* Uttarakhand
-* Kashmir
-* Maharashtra
-
-## Project Objectives
-
-The main objectives of this project are:
-
-* To establish a professional online presence for RR Tourism
-* To display travel packages in an attractive format
-* To simplify customer enquiries and bookings
-* To generate leads through WhatsApp and contact forms
-* To provide complete tour and destination information
-* To improve customer trust and engagement
-* To make the website accessible across all devices
-* To promote affordable and customized travel experiences
-
-## Responsive Design
-
-The website is optimized for:
-
-* Mobile phones
-* Tablets
-* Laptops
-* Desktop computers
-* Different screen sizes and modern browsers
-
-## Installation
-
-Clone the repository:
-
-```bash
-git clone https://github.com/your-username/rr-tourism.git
-```
-
-Open the project directory:
-
-```bash
-cd rr-tourism
-```
-
-Install the required dependencies, if applicable:
-
-```bash
-npm install
-```
-
-Start the development server:
-
-```bash
-npm run dev
-```
-
-Open the local development URL displayed in the terminal.
+* Info@rrtourism.com
 
 ## Project Structure
 
 ```text
-rr-tourism/
-├── public/
-│   ├── images/
-│   ├── icons/
-│   └── assets/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── sections/
-│   ├── styles/
-│   └── data/
-├── README.md
-├── package.json
-└── configuration-files
+rr-tourism-website/
+|-- index.html
+|-- styles.css
+|-- app.js
+|-- README.md
+|-- .nojekyll
+|-- .github/workflows/pages.yml
+`-- assets/
+    |-- hero-travel.mp4
+    |-- rr-tourism-logo.png
+    |-- rr-tourism-social-preview.jpg
+    |-- favicon.png
+    |-- gallery-pdf/
+    `-- holy/
 ```
 
-The project structure may vary depending on the technologies used.
+## Deployment
 
-## Customization
+The website is deployed with GitHub Pages using the workflow in:
 
-The following content can be customized:
+`.github/workflows/pages.yml`
 
-* Business information
-* Tour packages
-* Package prices
-* Destinations
-* Images
-* Contact details
-* WhatsApp number
-* Email address
-* Customer testimonials
-* Travel offers
-* Website colours
-* Typography
-* Social media links
-
-## Future Improvements
-
-Future updates may include:
-
-* Online tour booking system
-* Secure payment gateway
-* Customer login and registration
-* Admin dashboard
-* Dynamic tour package management
-* Online payment receipts
-* Booking confirmation emails
-* Customer booking history
-* Coupon and discount system
-* Travel blog
-* Live chat support
-* Multiple-language support
-* Real-time weather information
-* Automated WhatsApp booking confirmation
+Every push to the `main` branch triggers the deployment workflow.
 
 ## Developed By
 
-This website is designed and developed by **Sati Technologies**.
-
-Sati Technologies provides professional services including:
-
-* Business website development
-* Tourism website development
-* E-commerce development
-* Custom web applications
-* UI/UX design
-* Search engine optimization
-* Website maintenance
-* Domain and deployment support
-
-## Disclaimer
-
-All tour information, pricing, availability, schedules, hotel details, transportation arrangements, and package inclusions are subject to change. Customers should contact RR Tourism for the latest information before confirming a booking.
-
-## License
-
-This project is developed for RR Tourism. Unauthorized copying, redistribution, resale, or commercial use of the website design, content, or source code is not permitted without prior approval.
+Designed and developed by **Sati Technologies** for **RR Tourism**.
 
 ---
 
-## RR Tourism
-
-**Explore More. Travel Better. Create Memories.**
+**Explore More. Travel Better. Create Memories with RR Tourism.**
