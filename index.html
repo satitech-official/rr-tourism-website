@@ -1,0 +1,447 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="RR Tourism, Mhow-Indore: affordable domestic and international tours, honeymoon, family, group, weekend and customized packages." />
+  <meta name="keywords" content="RR Tourism, Mhow tourism, Indore travel agency, domestic tours, international tours, visa assistance, honeymoon packages, family tours, India travel" />
+  <meta property="og:title" content="RR Tourism | Domestic & International Tour Packages" />
+  <meta property="og:description" content="Domestic and international tour packages from     Indore with hotel, flight, visa and itinerary assistance." />
+  <meta property="og:image" content="assets/rr-tourism-social-preview.jpg" />
+  <title>RR Tourism | Travel Packages</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://images.unsplash.com" />
+  <link rel="preconnect" href="https://videos.pexels.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="is-loading">
+  <div class="loader" id="loader" role="status" aria-live="polite">
+    <div class="loader-route" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="loader-mark logo-loader"><img src="assets/favicon.png" alt="RR Tourism logo" /></div>
+    <p>Preparing your journey...</p>
+    <div class="loader-progress" aria-hidden="true"><span></span></div>
+  </div>
+
+  <div class="travel-cursor" id="travelCursor" aria-hidden="true">
+    <span class="cursor-ring"></span>
+    <span class="cursor-dot"></span>
+    <span class="cursor-label">Loading</span>
+  </div>
+
+  <header class="site-header" id="siteHeader">
+    <a class="brand" href="#home" aria-label="RR Tourism home">
+      <span class="brand-logo"><img src="assets/favicon.png" alt="RR Tourism logo" /></span>
+      <strong>RR Tourism</strong>
+      <small>Preparing your journey</small>
+    </a>
+    <nav class="main-nav" id="mainNav" aria-label="Primary navigation">
+      <img class="mobile-menu-logo" src="assets/rr-tourism-logo.png" alt="RR Tourism logo" />
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <div class="nav-dropdown">
+        <a href="#packages">Packages</a>
+        <div class="dropdown-menu">
+          <a href="#packages" data-nav-filter="Domestic">Domestic Tours</a>
+          <a href="#packages" data-nav-filter="International">International Tours</a>
+          <a href="#packages" data-nav-filter="Honeymoon">Honeymoon Packages</a>
+          <a href="#packages" data-nav-filter="Family">Family Packages</a>
+          <a href="#packages" data-nav-filter="Group">Group Tours</a>
+          <a href="#planner">Customized Tours</a>
+        </div>
+      </div>
+      <a href="#destinations">Destinations</a>
+      <a href="#international">International</a>
+      <a href="#holy-places">Holy Places</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#blog">Blog</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#booking">Booking</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main>
+    <section class="hero section-page" id="home">
+      <video class="hero-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80">
+        <source src="https://videos.pexels.com/video-files/2169880/2169880-hd_1920_1080_30fps.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-overlay"></div>
+      <!-- <div class="hero-float float-one">Goa</div>
+      <div class="hero-float float-two">Ladakh</div>
+      <div class="hero-float float-three">Kerala</div> -->
+      <div class="hero-content reveal">
+        <p class="eyebrow">Tour packages from Indore</p>
+        <h1>Explore More. Travel Better. Create Memories with RR Tourism.</h1>
+        <p class="hero-copy">Affordable and memorable tour packages from Indore to India's most beautiful destinations.</p>
+        <p class="hero-copy hero-extra">Domestic & International Tour Packages from Indore.</p>
+        <div class="hero-badge">Now Organizing International Trips</div>
+        <div class="hero-actions">
+          <a class="btn primary" href="#packages">Explore Packages</a>
+          <a class="btn secondary" href="#international">Explore International Tours</a>
+          <a class="btn secondary" href="#planner">Plan Your Trip</a>
+          <a class="btn coral" href="#booking">Book Now</a>
+          <a class="btn whatsapp" target="_blank" rel="noopener noreferrer" href="https://wa.me/919009071697?text=Hello%20RR%20Tourism%2C%20I%20want%20more%20information%20about%20your%20tour%20packages.">WhatsApp Us</a>
+        </div>
+      </div>
+      <form class="hero-search glass reveal" id="heroSearch">
+        <label>Destination
+          <select name="destination" required>
+            <option value="">Choose place</option>
+            <option>Goa</option><option>Manali</option><option>Kashmir</option><option>Kerala</option><option>Ladakh</option><option>Rajasthan</option><option>Dubai</option><option>Bali</option><option>Maldives</option><option>Singapore</option>
+          </select>
+        </label>
+        <label>Travel Date
+          <input type="date" name="travelDate" required />
+        </label>
+        <label>Travellers
+          <input type="number" name="travellers" min="1" value="2" />
+        </label>
+        <label>Package Type
+          <select name="type">
+            <option>Family</option><option>Honeymoon</option><option>Group</option><option>Adventure</option><option>Religious</option><option>International</option>
+          </select>
+        </label>
+        <label>Budget Range
+          <select name="budget">
+            <option>Under Rs 10,000</option><option>Rs 10,000 - 25,000</option><option>Rs 25,000 - 50,000</option><option>Premium</option>
+          </select>
+        </label>
+        <button type="submit">Search Trips</button>
+      </form>
+    </section>
+
+    <section class="quick-pages">
+      <div class="quick-strip reveal" id="quickPages"></div>
+    </section>
+
+    <section class="section about section-page" id="about">
+      <div class="section-heading reveal">
+        <p class="eyebrow">About RR Tourism</p>
+        <h2>Trusted travel planning from Mhow, Madhya Pradesh.</h2>
+        <p>RR Tourism is a trusted travel and tourism service dedicated to making every journey comfortable, memorable, and hassle-free. Based in Mhow, Madhya Pradesh, we help individuals, families, groups, and corporate travellers explore beautiful destinations with well-planned and affordable travel solutions.</p>
+        <p>From customized tour packages and hotel bookings to transportation, sightseeing, and complete trip planning, our team takes care of every detail. We focus on understanding each traveller's needs and creating personalized experiences that match their budget, schedule, and preferences.</p>
+        <p>At RR Tourism, we believe that travelling is not only about visiting new places - it is about creating unforgettable memories. With reliable service, transparent pricing, local expertise, and customer satisfaction at the heart of everything we do, we aim to become your trusted travel partner for every journey.</p>
+        <p><strong>Explore More. Travel Better. Create Memories with RR Tourism.</strong></p>
+      </div>
+      <div class="about-grid">
+        <div class="about-card reveal">
+          <img src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=1200&q=80" alt="Travellers enjoying a scenic trip" />
+          <div class="about-badge">Transparent pricing. Friendly coordination.</div>
+        </div>
+        <div class="feature-list reveal" id="aboutFeatures"></div>
+      </div>
+      <div class="stats reveal" id="stats"></div>
+    </section>
+
+    <section class="section services section-page" id="services">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Travel Services</p>
+        <h2>Everything your trip needs, beautifully managed.</h2>
+      </div>
+      <div class="service-grid" id="servicesGrid"></div>
+    </section>
+
+    <section class="section packages section-page" id="packages">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Tour Packages</p>
+        <h2>Dynamic packages for every travel style.</h2>
+        <p>Filter domestic and international tours by honeymoon, family, group, adventure, religious and weekend travel styles.</p>
+      </div>
+      <div class="filter-bar reveal" id="packageFilters"></div>
+      <div class="package-search reveal">
+        <input id="packageSearch" type="search" placeholder="Search destination, package, hotel or transport..." />
+      </div>
+      <div class="package-grid" id="packageGrid"></div>
+    </section>
+
+    <section class="section offers section-page" id="offers">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Featured Offers</p>
+        <h2>Colorful deals with limited-time countdowns.</h2>
+      </div>
+      <div class="offer-grid" id="offerGrid"></div>
+    </section>
+
+    <section class="section destinations section-page" id="destinations">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Popular Destinations</p>
+        <h2>India's most loved journeys, one card away.</h2>
+      </div>
+      <div class="destination-grid" id="destinationGrid"></div>
+    </section>
+
+    <section class="section destinations section-page" id="international">
+      <div class="section-heading reveal">
+        <p class="eyebrow">International Tours</p>
+        <h2>Explore International Destinations with RR Tourism</h2>
+        <p>From     Indore to the world's most beautiful destinations - enjoy comfortable, affordable and memorable international holidays with RR Tourism.</p>
+      </div>
+      <div class="destination-grid" id="internationalGrid"></div>
+    </section>
+
+    <section class="section services section-page" id="visa-assistance">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Visa & Travel Assistance</p>
+        <h2>Complete International Travel Assistance</h2>
+      </div>
+      <div class="service-grid" id="visaGrid"></div>
+      <p class="visa-note reveal">Visa approval depends on the concerned embassy or consulate. RR Tourism provides documentation and application assistance but does not guarantee visa approval.</p>
+    </section>
+
+    <section class="section packages section-page" id="honeymoon">
+      <div class="section-heading reveal">
+        <p class="eyebrow">International Honeymoon Packages</p>
+        <h2>Romantic, comfortable and beautifully planned escapes.</h2>
+      </div>
+      <div class="package-grid" id="honeymoonGrid"></div>
+    </section>
+
+    <section class="section tours-menu">
+      <div class="tour-band reveal">
+        <a href="#packages">Domestic Tours</a>
+        <a href="#international">International Tours</a>
+        <a href="#packages">Honeymoon Packages</a>
+        <a href="#packages">Family Tours</a>
+        <a href="#packages">Group Tours</a>
+        <a href="#packages">Adventure Tours</a>
+        <a href="#packages">Weekend Trips</a>
+        <a href="#planner">Customized Packages</a>
+      </div>
+    </section>
+
+    <section class="section gallery section-page" id="gallery">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Dynamic Gallery</p>
+        <h2>Photos, videos and tour highlights.</h2>
+      </div>
+      <div class="filter-bar reveal" id="galleryFilters"></div>
+      <div class="masonry" id="galleryGrid"></div>
+    </section>
+    <section class="section destinations section-page" id="holy-places">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Holy Places</p>
+        <h2>Spiritual journeys for every faith and family.</h2>
+        <p>RR Tourism plans respectful religious and spiritual tours for Hindu, Muslim, Sikh, Christian, Buddhist and Jain travellers with comfortable transport, stays, sightseeing and local assistance.</p>
+      </div>
+      <div class="filter-bar reveal" id="holyFilters"></div>
+      <div class="destination-grid" id="holyGrid"></div>
+    </section>
+
+
+    <section class="section destinations section-page" id="international-holy">
+      <div class="section-heading reveal">
+        <p class="eyebrow">International Holy Trips</p>
+        <h2>Global spiritual destinations with RR Tourism.</h2>
+        <p>Plan international pilgrimage and spiritual journeys with flight assistance, hotel support, guided sightseeing, visa guidance and comfortable transfers.</p>
+      </div>
+      <div class="filter-bar reveal" id="internationalHolyFilters"></div>
+      <div class="destination-grid" id="internationalHolyGrid"></div>
+    </section>
+
+    <section class="section planner section-page" id="planner">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Customized Trip Planner</p>
+        <h2>Tell us your dream trip. We will shape the route.</h2>
+      </div>
+      <form class="form-grid reveal" id="plannerForm">
+        <input name="name" placeholder="Full name" required />
+        <input name="mobile" placeholder="Mobile number" required />
+        <input name="email" type="email" placeholder="Email" />
+        <select name="tripScope"><option>Domestic or International Trip</option><option>Domestic Trip</option><option>International Trip</option></select>
+        <input name="country" placeholder="Preferred country" />
+        <select name="departureCity"><option>Departure City</option><option>Indore</option><option>Mumbai</option><option>Delhi</option><option>Ahmedabad</option><option>Other</option></select>
+        <select name="passport"><option>Passport Availability</option><option>Available</option><option>Applied</option><option>Need passport guidance</option></select>
+        <select name="visaRequired"><option>Visa Required</option><option>Yes</option><option>No</option><option>Need guidance</option></select>
+        <input name="start" placeholder="Starting location" value="Mhow / Indore" />
+        <input name="destination" placeholder="Preferred destination" required />
+        <input name="dates" placeholder="Travel dates" />
+        <input name="duration" placeholder="Trip duration" />
+        <input name="adults" type="number" min="1" value="2" placeholder="Adults" />
+        <input name="children" type="number" min="0" value="0" placeholder="Children" />
+        <select name="budget"><option>Estimated budget</option><option>Budget</option><option>Standard</option><option>Premium</option></select>
+        <select name="hotel"><option>Hotel preference</option><option>3 Star</option><option>4 Star</option><option>5 Star</option><option>Villa / Resort</option></select>
+        <select name="flight"><option>Flight preference</option><option>Need flight assistance</option><option>Already booked</option><option>Without flight</option></select>
+        <select name="meal"><option>Meal preference</option><option>Breakfast</option><option>Breakfast and dinner</option><option>Vegetarian meals</option><option>Jain meals on request</option></select>
+        <select name="transport"><option>Transportation preference</option><option>Bus</option><option>Traveller</option><option>Sedan / SUV</option><option>Flight assistance</option></select>
+        <select name="type"><option>Trip type</option><option>Honeymoon</option><option>Family</option><option>Group</option><option>Corporate</option><option>Couple</option><option>Adventure</option><option>Religious</option></select>
+        <textarea name="requirements" placeholder="Special requirements"></textarea>
+        <button class="btn primary" type="submit">Submit Trip Plan</button>
+      </form>
+      <p class="form-message" id="plannerMessage"></p>
+    </section>
+
+    <section class="section reviews section-page" id="reviews">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Customer Reviews</p>
+        <h2>Real journeys, warm memories.</h2>
+      </div>
+      <div class="review-shell reveal">
+        <button class="slider-btn" id="prevReview" aria-label="Previous review"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18 9 12l6-6"/></svg></button>
+        <div class="review-card" id="reviewCard"></div>
+        <button class="slider-btn" id="nextReview" aria-label="Next review"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+      <div class="google-rating reveal">
+        <strong>4.8/5 Google-style rating</strong>
+        <span class="star-icons" aria-label="5 star rating"></span>
+        <button class="btn secondary" id="submitReviewBtn">Submit Your Review</button>
+      </div>
+    </section>
+
+    <section class="section blog section-page" id="blog">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Travel Blog & Tips</p>
+        <h2>Smart ideas before you pack.</h2>
+      </div>
+      <div class="blog-grid" id="blogGrid"></div>
+    </section>
+
+    <section class="section weather section-page" id="weather">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Weather Preview</p>
+        <h2>Destination-friendly planning snapshots.</h2>
+      </div>
+      <div class="weather-grid" id="weatherGrid"></div>
+    </section>
+
+    <section class="section booking section-page" id="booking">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Online Booking</p>
+        <h2>Request your booking directly on WhatsApp.</h2>
+        <p>Select your travel details and send the complete enquiry to RR Tourism for quick confirmation.</p>
+      </div>
+      <div class="booking-layout">
+        <form class="booking-form reveal" id="bookingForm">
+          <select id="bookingScope"><option>Domestic booking</option><option>International booking</option></select>
+          <select id="internationalDestination"><option value="">Select international destination</option></select>
+          <select id="bookingPackage" required></select>
+          <input type="date" id="bookingDate" required />
+          <input id="travellerName" placeholder="Lead traveller name" required />
+          <input id="travellerPhone" placeholder="Mobile / WhatsApp number" required />
+          <input id="passportStatus" placeholder="Passport status only - do not enter passport number" />
+          <select id="visaStatus"><option>Visa status</option><option>Not applied</option><option>Need assistance</option><option>Already approved</option><option>Visa not required</option></select>
+          <select id="pickup"><option>Mhow pickup</option><option>Indore pickup</option><option>Airport pickup</option><option>Railway station pickup</option></select>
+          <select id="room"><option value="0">Standard room</option><option value="2000">Deluxe room + Rs 2,000</option><option value="5000">Premium room + Rs 5,000</option></select>
+          <select id="flightNeed"><option value="0">Flight requirement</option><option value="0">Need flight assistance</option><option value="0">Flights already booked</option></select>
+          <select id="transferNeed"><option value="0">Airport transfer requirement</option><option value="0">Shared transfer</option><option value="2500">Private airport transfer + Rs 2,500</option></select>
+          <select id="insuranceNeed"><option value="0">Travel insurance requirement</option><option value="0">Need insurance assistance</option><option value="0">Already arranged</option></select>
+          <label class="check"><input type="checkbox" value="1200" class="extra" /> Airport / railway pickup</label>
+          <label class="check"><input type="checkbox" value="1800" class="extra" /> Candlelight dinner / celebration setup</label>
+          <label class="check"><input type="checkbox" value="2500" class="extra" /> Private sightseeing upgrade</label>
+          <label class="check"><input type="checkbox" value="4500" class="extra" /> International add-on activities</label>
+          <button class="btn primary" type="submit">Submit Booking Request</button>
+        </form>
+        <aside class="booking-summary reveal">
+          <img class="summary-logo" src="assets/favicon.png" alt="RR Tourism logo" />
+          <h3>Package Estimate</h3>
+          <p id="selectedPackageName">Choose a package</p>
+          <strong id="bookingTotal">Rs 0</strong>
+          <small>This is a package estimate for enquiry purposes. Final price depends on dates, availability, traveller count, hotel category and transport selection.</small>
+          <small>Privacy note: Do not submit passport number or sensitive passport details here. RR Tourism will collect documents through a secure confirmation process.</small>
+          <a class="btn whatsapp" id="bookingWhatsappBtn" target="_blank" rel="noopener noreferrer" href="https://wa.me/919009071697?text=Hello%20RR%20Tourism%2C%20I%20want%20to%20book%20a%20tour.">WhatsApp Booking</a>
+          <p class="form-message" id="bookingMessage"></p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section faq section-page" id="faqs">
+      <div class="section-heading reveal">
+        <p class="eyebrow">FAQs</p>
+        <h2>Quick answers for smoother planning.</h2>
+      </div>
+      <div class="faq-list" id="faqList"></div>
+    </section>
+
+    <section class="section contact section-page" id="contact">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Contact Us</p>
+        <h2>Ready to plan your next journey?</h2>
+        <p>Get in touch with RR Tourism for tour packages, bookings, travel assistance, and customized trip planning.</p>
+      </div>
+      <div class="contact-layout">
+        <div class="contact-card reveal">
+          <img class="contact-logo" src="assets/rr-tourism-logo.png" alt="RR Tourism logo" />
+          <h3>RR Tourism</h3>
+          <p>Mhow, Madhya Pradesh</p>
+          <p><strong>Call Us:</strong><br />+91 90090 71697<br />+91 83493 94939</p>
+          <p><strong>WhatsApp:</strong> <a target="_blank" rel="noopener noreferrer" href="https://wa.me/919009071697?text=Hello%20RR%20Tourism%2C%20I%20want%20more%20information%20about%20your%20tour%20packages.">+91 90090 71697</a></p>
+          <p><strong>Email:</strong> Info@rrtourism.com</p>
+          <p>Our team will be happy to help you plan a comfortable, affordable, and memorable travel experience.</p>
+          <p><strong>RR Tourism - Your Trusted Travel Partner</strong></p>
+          <div class="socials">
+            <a href="#" aria-label="Instagram">Instagram</a>
+            <a href="#" aria-label="Facebook">Facebook</a>
+            <a href="#" aria-label="YouTube">YouTube</a>
+          </div>
+        </div>
+        <form class="contact-form reveal" id="contactForm">
+          <input placeholder="Your name" required />
+          <input placeholder="Mobile number" required />
+          <input type="email" placeholder="Email address" />
+          <textarea placeholder="How can RR Tourism help you?" required></textarea>
+          <button class="btn primary" type="submit">Send Enquiry</button>
+          <p class="form-message" id="contactMessage"></p>
+        </form>
+        <iframe class="map reveal" title="Mhow Indore map" loading="lazy" src="https://www.google.com/maps?q=Mhow%2C%20Indore%2C%20Madhya%20Pradesh&output=embed"></iframe>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <div class="newsletter-inner reveal">
+        <h2>Get new offers, brochures and weekend trip alerts.</h2>
+        <form id="newsletterForm">
+          <input type="email" placeholder="Email address" required />
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button id="closeLightbox" aria-label="Close gallery preview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <img id="lightboxImage" alt="Gallery preview" />
+  </div>
+
+  <div class="modal" id="contentModal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-panel">
+      <button class="modal-close" id="closeModal" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <a class="floating-whatsapp" target="_blank" rel="noopener noreferrer" href="https://wa.me/919009071697?text=Hello%20RR%20Tourism%2C%20I%20want%20more%20information%20about%20your%20tour%20packages." aria-label="WhatsApp RR Tourism">
+    <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <path d="M16.02 3.2A12.67 12.67 0 0 0 5.25 22.55L3.6 28.8l6.39-1.62A12.66 12.66 0 1 0 16.02 3.2Zm0 22.96a10.4 10.4 0 0 1-5.29-1.45l-.38-.22-3.79.96 1.01-3.69-.25-.39a10.39 10.39 0 1 1 8.7 4.79Zm5.72-7.78c-.31-.16-1.84-.91-2.13-1.01-.29-.11-.5-.16-.71.16-.21.31-.82 1.01-1.01 1.22-.18.21-.37.24-.68.08-.31-.16-1.32-.49-2.51-1.55-.93-.83-1.56-1.85-1.74-2.16-.18-.31-.02-.48.14-.64.14-.14.31-.37.47-.55.16-.18.21-.31.31-.52.1-.21.05-.39-.03-.55-.08-.16-.71-1.71-.97-2.34-.26-.62-.52-.54-.71-.55h-.61c-.21 0-.55.08-.84.39-.29.31-1.1 1.07-1.1 2.62s1.13 3.04 1.29 3.25c.16.21 2.22 3.39 5.38 4.75.75.32 1.34.52 1.8.66.76.24 1.44.2 1.98.12.6-.09 1.84-.75 2.1-1.48.26-.73.26-1.36.18-1.49-.08-.13-.29-.21-.6-.37Z"/>
+    </svg>
+  </a>
+  <button class="to-top" id="toTop" aria-label="Scroll to top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+
+  <footer>
+    <p><img class="footer-logo" src="assets/favicon.png" alt="RR Tourism logo" /> &copy; 2026 RR Tourism, Mhow-Indore. Built for memorable Indian journeys.</p>
+    <div>
+      <a href="#packages">Download Brochures</a>
+      <a href="#international">International Tour Packages</a>
+      <a href="#visa-assistance">Visa Assistance</a>
+      <a href="#booking">Flight Booking Assistance</a>
+      <a href="#honeymoon">International Honeymoon Packages</a>
+      <a href="#visa-assistance">Travel Insurance Assistance</a>
+      <a target="_blank" rel="noopener noreferrer" href="https://wa.me/919009071697?text=Hello%20RR%20Tourism%2C%20I%20want%20more%20information%20about%20your%20tour%20packages.">WhatsApp</a>
+      <a href="#contact">Share with friends</a>
+      <a href="#booking">Book a tour</a>
+    </div>
+  </footer>
+
+  <script src="assets/rr-logo-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+
+
+
