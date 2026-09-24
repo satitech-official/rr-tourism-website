@@ -90,16 +90,13 @@
       <a href="#reviews">Reviews</a>
       <a href="#contact">Contact</a>
     </nav>
-    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mainNav">
       <span></span><span></span><span></span>
     </button>
   </header>
 
   <main>
     <section class="hero section-page" id="home">
-      <video class="hero-video" muted loop playsinline preload="none" poster="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80">
-        <source src="assets/hero-travel.mp4" type="video/mp4" />
-      </video>
       <div class="hero-overlay"></div>
       <!-- <div class="hero-float float-one">Goa</div>
       <div class="hero-float float-two">Ladakh</div>
@@ -257,18 +254,17 @@
 
     <section class="section reviews section-page" id="reviews">
       <div class="section-heading reveal">
-        <p class="eyebrow">Customer Reviews</p>
-        <h2>Real journeys, warm memories.</h2>
+        <p class="eyebrow">Customer Feedback</p>
+        <h2>Travelled with RR Tourism? Share your experience.</h2>
+        <p>Customer feedback is published only after it can be verified. Send your destination, travel month and experience to the RR Tourism team.</p>
       </div>
-      <div class="review-shell reveal">
-        <button class="slider-btn" id="prevReview" aria-label="Previous review"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18 9 12l6-6"/></svg></button>
-        <div class="review-card" id="reviewCard"></div>
-        <button class="slider-btn" id="nextReview" aria-label="Next review"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
-      </div>
-      <div class="google-rating reveal">
-        <strong>Traveller feedback</strong>
-        <span class="star-icons" aria-label="Traveller review stars"></span>
-        <button class="btn secondary" id="submitReviewBtn">Submit Your Review</button>
+      <div class="review-empty reveal">
+        <div>
+          <span class="badge">Verified feedback only</span>
+          <h3>Help future travellers plan with confidence.</h3>
+          <p>Share what you liked about the itinerary, hotel, transport, coordination or overall trip experience.</p>
+        </div>
+        <a class="btn whatsapp" target="_blank" rel="noopener noreferrer" href="https://wa.me/919009071697?text=Hello%20RR%20Tourism%2C%20I%20would%20like%20to%20share%20feedback%20about%20my%20trip.">Share Feedback on WhatsApp</a>
       </div>
     </section>
 
@@ -380,13 +376,13 @@
   </main>
 
   <div class="lightbox" id="lightbox" aria-hidden="true">
-    <button id="closeLightbox" aria-label="Close gallery preview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <button id="closeLightbox" type="button" aria-label="Close gallery preview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
     <img id="lightboxImage" alt="Gallery preview" />
   </div>
 
   <div class="modal" id="contentModal" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="modal-panel">
-      <button class="modal-close" id="closeModal" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <button class="modal-close" id="closeModal" type="button" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
       <div id="modalContent"></div>
     </div>
   </div>
@@ -396,7 +392,7 @@
       <path d="M16.02 3.2A12.67 12.67 0 0 0 5.25 22.55L3.6 28.8l6.39-1.62A12.66 12.66 0 1 0 16.02 3.2Zm0 22.96a10.4 10.4 0 0 1-5.29-1.45l-.38-.22-3.79.96 1.01-3.69-.25-.39a10.39 10.39 0 1 1 8.7 4.79Zm5.72-7.78c-.31-.16-1.84-.91-2.13-1.01-.29-.11-.5-.16-.71.16-.21.31-.82 1.01-1.01 1.22-.18.21-.37.24-.68.08-.31-.16-1.32-.49-2.51-1.55-.93-.83-1.56-1.85-1.74-2.16-.18-.31-.02-.48.14-.64.14-.14.31-.37.47-.55.16-.18.21-.31.31-.52.1-.21.05-.39-.03-.55-.08-.16-.71-1.71-.97-2.34-.26-.62-.52-.54-.71-.55h-.61c-.21 0-.55.08-.84.39-.29.31-1.1 1.07-1.1 2.62s1.13 3.04 1.29 3.25c.16.21 2.22 3.39 5.38 4.75.75.32 1.34.52 1.8.66.76.24 1.44.2 1.98.12.6-.09 1.84-.75 2.1-1.48.26-.73.26-1.36.18-1.49-.08-.13-.29-.21-.6-.37Z"/>
     </svg>
   </a>
-  <button class="to-top" id="toTop" aria-label="Scroll to top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+  <button class="to-top" id="toTop" type="button" aria-label="Scroll to top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 
   <footer>
     <p><img class="footer-logo" src="assets/favicon.png" alt="RR Tourism logo" /> &copy; 2026 RR Tourism, Mhow-Indore. Built for memorable Indian journeys.</p>
