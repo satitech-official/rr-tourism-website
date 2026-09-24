@@ -62,11 +62,11 @@ const destinationImages = {
   Mahabaleshwar: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80",
   Ayodhya: "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=900&q=80",
   Varanasi: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=900&q=80",
-  "Mathura-Vrindavan": "https://images.unsplash.com/photo-1625123453381-364b80f1c932?auto=format&fit=crop&w=900&q=80",
+  "Mathura-Vrindavan": "https://commons.wikimedia.org/wiki/Special:FilePath/Prem%20mandir%2C%20Vrindavan.jpg",
   Amritsar: "https://images.unsplash.com/photo-1609947017136-9daf32a5eb16?auto=format&fit=crop&w=900&q=80",
   Andaman: "https://images.unsplash.com/photo-1586500036706-41963de24d8b?auto=format&fit=crop&w=900&q=80",
   "North-East India": "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=900&q=80",
-  "Indore Nearby": "https://images.unsplash.com/photo-1600100397608-f010a14112b9?auto=format&fit=crop&w=900&q=80"
+  "Indore Nearby": "https://commons.wikimedia.org/wiki/Special:FilePath/Patalpani%20Waterfalls.jpg"
 };
 
 const internationalImages = {
@@ -82,7 +82,7 @@ const internationalImages = {
   Vietnam: "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=900&q=80",
   Mauritius: "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=900&q=80",
   Turkey: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=900&q=80",
-  Azerbaijan: "https://images.unsplash.com/photo-1601305738427-9b65e0b9d3bf?auto=format&fit=crop&w=900&q=80",
+  Azerbaijan: "https://commons.wikimedia.org/wiki/Special:FilePath/Baku%20Skyline%20qiz%20qalasi.jpg",
   Georgia: "https://images.unsplash.com/photo-1565008576549-57569a49371d?auto=format&fit=crop&w=900&q=80",
   Egypt: "https://images.unsplash.com/photo-1539768942893-daf53e448371?auto=format&fit=crop&w=900&q=80",
   Europe: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=900&q=80",
