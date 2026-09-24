@@ -334,14 +334,6 @@ const gallery = [
   ["Travel Moments", "assets/gallery-pdf/page-20.jpg", "Outdoor group travel memory"]
 ];
 
-const reviews = [
-  ["Priya Sharma", "Kashmir", "Family Package", "March 2026", "RR Tourism planned our family trip beautifully. Hotels, cab and sightseeing were comfortable, and every detail was explained clearly.", "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80", ""],
-  ["Ankit Jain", "Goa", "Group Package", "February 2026", "The Goa package from Indore was affordable and fun. Quick WhatsApp support made the whole booking feel very easy.", "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80", ""],
-  ["Nisha Verma", "Kerala", "Honeymoon Package", "January 2026", "Our honeymoon itinerary had a great balance of relaxation and sightseeing. The houseboat stay was the highlight.", "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80", ""],
-  ["Sample Review - Rohan Mehta", "Dubai", "International Family Package", "Sample travel date", "Sample Review: The international planning flow felt clear, with helpful guidance for flights, hotel options and visa documents.", "https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?auto=format&fit=crop&w=300&q=80", "Sample Review"],
-  ["Sample Review - Aditi Rao", "Maldives", "International Honeymoon Package", "Sample travel date", "Sample Review: The resort suggestions, private transfer guidance and honeymoon add-ons were presented professionally.", "https://images.unsplash.com/photo-1548142813-c348350df52b?auto=format&fit=crop&w=300&q=80", "Sample Review"]
-];
-
 const blogs = [
   {
     title: "Top 7 Weekend Trips from Indore",
@@ -732,25 +724,11 @@ function renderGallery(filter = "All") {
   observeReveals();
 }
 
-let reviewIndex = 0;
-function renderReview() {
-  const [name, destination, type, date, text, image, label] = reviews[reviewIndex];
-  document.getElementById("reviewCard").innerHTML = `
-    <img src="${image}" alt="${name}" />
-    <div>
-      <div class="stars">${starIcons()}</div>
-      <h3>${name}</h3>
-      <p><strong>${destination}</strong> | ${type} | ${date}</p>
-      ${label ? `<span class="badge">${label}</span>` : ""}
-      <p>${text}</p>
-    </div>`;
-}
-
 function renderBlogWeatherFaq() {
   document.getElementById("blogGrid").innerHTML = blogs.map((blog, index) => `
     <article class="blog-card reveal"><img src="${blog.image}" alt="${blog.title}" loading="lazy"><div class="card-body"><h3>${blog.title}</h3><p>${blog.text}</p><button class="btn secondary" data-blog="${index}">Read Trip</button></div></article>`).join("");
   renderWeatherCards(fallbackWeather, "Loading live weather...");
-  document.getElementById("faqList").innerHTML = faqs.map(([q, a]) => `<div class="faq-item reveal"><button>${q}</button><p>${a}</p></div>`).join("");
+  document.getElementById("faqList").innerHTML = faqs.map(([q, a], index) => `<div class="faq-item reveal"><button type="button" aria-expanded="false" aria-controls="faq-answer-${index}">${q}</button><p id="faq-answer-${index}">${a}</p></div>`).join("");
 }
 
 function renderWeatherCards(items, status = "Live weather") {
@@ -829,21 +807,6 @@ function plannerWhatsAppMessage(form) {
   return lines.join("\n");
 }
 
-function submitReviewHtml() {
-  return `<div class="modal-copy">
-    <p class="eyebrow">Customer Review</p>
-    <h2>Submit Your Review</h2>
-    <form class="modal-form" id="reviewForm">
-      <input name="name" placeholder="Your full name" required />
-      <input name="destination" placeholder="Destination visited" required />
-      <input name="type" placeholder="Package type, e.g. Family or Honeymoon" required />
-      <input name="date" placeholder="Travel month / date" required />
-      <textarea name="text" placeholder="Write your travel experience" required></textarea>
-      <button class="btn primary" type="submit">Submit Review</button>
-    </form>
-  </div>`;
-}
-
 function setupInteractions() {
   const header = document.getElementById("siteHeader");
   const toTop = document.getElementById("toTop");
@@ -911,14 +874,13 @@ function setupInteractions() {
     if (e.key === "Escape") closeModal();
   });
 
-  document.getElementById("prevReview").addEventListener("click", () => { reviewIndex = (reviewIndex + reviews.length - 1) % reviews.length; renderReview(); });
-  document.getElementById("nextReview").addEventListener("click", () => { reviewIndex = (reviewIndex + 1) % reviews.length; renderReview(); });
-  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    setInterval(() => { reviewIndex = (reviewIndex + 1) % reviews.length; renderReview(); }, 6500);
-  }
 
   document.getElementById("faqList").addEventListener("click", e => {
-    if (e.target.matches("button")) e.target.parentElement.classList.toggle("open");
+    if (!e.target.matches("button")) return;
+    const item = e.target.parentElement;
+    const open = !item.classList.contains("open");
+    item.classList.toggle("open", open);
+    e.target.setAttribute("aria-expanded", String(open));
   });
 
   document.querySelectorAll("form").forEach(form => form.addEventListener("submit", e => {
@@ -932,13 +894,6 @@ function setupInteractions() {
       document.getElementById("bookingMessage").textContent = "Booking enquiry prepared for WhatsApp. Please send the message to confirm details.";
       window.open(document.getElementById("bookingWhatsappBtn").href, "_blank", "noopener,noreferrer");
     }
-    if (form.id === "contactForm") {
-      const fields = [...form.querySelectorAll("input, textarea")].map(el => el.value.trim());
-      const url = whatsappUrl(`Hello RR Tourism,\nI want to send an enquiry.\n\nName: ${fields[0] || "Not provided"}\nMobile: ${fields[1] || "Not provided"}\nEmail: ${fields[2] || "Not provided"}\nMessage: ${fields[3] || "Not provided"}`);
-      document.getElementById("contactMessage").innerHTML = `Thank you. <a href="${url}" target="_blank" rel="noopener noreferrer">Send this enquiry on WhatsApp</a>.`;
-    }
-    if (form.id === "newsletterForm") alert("Please use WhatsApp to request the latest RR Tourism travel updates.");
-    if (form.id === "heroSearch") location.hash = "packages";
   }));
 
   document.body.addEventListener("click", e => {
@@ -953,24 +908,6 @@ function setupInteractions() {
       if (blog) openModal(`<div class="modal-header"><img src="${blog.image}" alt="${escapeHtml(blog.title)}" /><div><p class="eyebrow">Travel Blog & Tips</p><h2>${blog.title}</h2><p>${blog.text}</p></div></div><div class="modal-copy"><p>${blog.details}</p><a class="btn whatsapp" target="_blank" rel="noopener noreferrer" href="${whatsappUrl(`Hello RR Tourism, I read ${blog.title}. Please help me plan a trip.`)}">Plan on WhatsApp</a></div>`);
     }
   });
-  document.body.addEventListener("submit", e => {
-    if (e.target.id !== "reviewForm") return;
-    e.preventDefault();
-    const data = new FormData(e.target);
-    reviews.unshift([
-      data.get("name"),
-      data.get("destination"),
-      data.get("type"),
-      data.get("date"),
-      data.get("text"),
-      "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=300&q=80",
-      "New Review"
-    ]);
-    reviewIndex = 0;
-    renderReview();
-    closeModal();
-  });
-  document.getElementById("submitReviewBtn").addEventListener("click", () => openModal(submitReviewHtml()));
 }
 
 
@@ -1121,7 +1058,6 @@ function init() {
   renderGallery();
   renderHolyPlaces();
   renderInternationalHolyPlaces();
-  renderReview();
   renderBlogWeatherFaq();
   setupBooking();
   setupInteractions();
