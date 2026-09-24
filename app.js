@@ -93,6 +93,36 @@ const internationalImages = {
   Australia: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=900&q=80"
 };
 
+/* Alternate place-correct images are used only where a destination photo would otherwise repeat
+   in another visible card/section. Primary destination-grid images above are intentionally unchanged. */
+const repeatReplacementImages = {
+  packageGoa: "https://commons.wikimedia.org/wiki/Special:FilePath/Goa_Beach_IND.jpg",
+  packageManali: "https://commons.wikimedia.org/wiki/Special:FilePath/Snow_hills%2C_manali.jpg",
+  packageKashmir: "https://commons.wikimedia.org/wiki/Special:FilePath/Dal_Lake%2C_Srinagar%2C_Kashmir.jpg",
+  packageKerala: "https://commons.wikimedia.org/wiki/Special:FilePath/Kerala_Backwater_.jpg",
+  packageRajasthan: "https://commons.wikimedia.org/wiki/Special:FilePath/Jaipur_palace.jpg",
+  packageVaranasi: "https://commons.wikimedia.org/wiki/Special:FilePath/Varanasi_Ghats.jpg",
+  packageDubai: "https://commons.wikimedia.org/wiki/Special:FilePath/Dubai_skyline_.jpg",
+  packageBali: "https://commons.wikimedia.org/wiki/Special:FilePath/Besakih_Temple_Bali_Indonesia.jpg",
+  packageThailand: "https://commons.wikimedia.org/wiki/Special:FilePath/Wat_Arun%2C_Bangkok%2C_Thailand.jpg",
+  packageMaldives: "https://commons.wikimedia.org/wiki/Special:FilePath/Maldives_resort.jpg",
+  packageSingapore: "https://commons.wikimedia.org/wiki/Special:FilePath/Marina_Bay%2C_Singapore.jpg",
+  packageEurope: "https://commons.wikimedia.org/wiki/Special:FilePath/Eiffel_Tower%2C_Paris.jpg",
+
+  honeymoonMaldives: "https://commons.wikimedia.org/wiki/Special:FilePath/Maldives_Resort%2C_Indian_Ocean.jpg",
+  honeymoonBali: "https://commons.wikimedia.org/wiki/Special:FilePath/Tanah_Lot%2C_Bali.jpg",
+  honeymoonDubai: "https://commons.wikimedia.org/wiki/Special:FilePath/Dubai_skyline_-_Dubai%2C_UAE.jpg",
+  honeymoonThailand: "https://commons.wikimedia.org/wiki/Special:FilePath/Wat_Arun_in_Bangkok_%281%29.jpg",
+  honeymoonSingapore: "https://commons.wikimedia.org/wiki/Special:FilePath/Marina_Bay_Sands_Singapore_2026_1.jpg",
+  honeymoonMauritius: "https://commons.wikimedia.org/wiki/Special:FilePath/Mauritius_beach1.jpg",
+  honeymoonSwitzerland: "https://commons.wikimedia.org/wiki/Special:FilePath/SWISS_ALPS_in_winter_look.jpg",
+  honeymoonEurope: "https://commons.wikimedia.org/wiki/Special:FilePath/Switzerland%2C_Alps.jpg",
+
+  blogIndoreWeekend: "https://commons.wikimedia.org/wiki/Special:FilePath/The_Grand_Maheshwar_Fort.jpg",
+  blogGoa: "https://commons.wikimedia.org/wiki/Special:FilePath/Palolem_Beach%2C_South_Goa.jpg",
+  blogKashmir: "https://commons.wikimedia.org/wiki/Special:FilePath/Dal_Lake_Srinagar_Kashmir.jpg"
+};
+
 const destinations = Object.keys(destinationImages).map((name, index) => ({
   name,
   duration: ["3N/4D", "4N/5D", "5N/6D", "6N/7D"][index % 4],
@@ -195,42 +225,42 @@ const packages = [
     hotel: "3 Star beach-side hotel", meals: "Breakfast included", transport: "AC bus / train assistance",
     sightseeing: "North Goa, South Goa, cruise evening", itinerary: "Day 1 Arrival | Day 2 North Goa | Day 3 South Goa | Day 4 Leisure | Day 5 Return",
     inclusions: "Hotel, breakfast, transfers, sightseeing", exclusions: "Personal expenses, entry tickets, lunch/dinner", cancellation: "Free date change up to 10 days before travel.",
-    dates: "Every Friday", seats: 18, badges: ["Best Seller", "Special Discount"], image: destinationImages.Goa
+    dates: "Every Friday", seats: 18, badges: ["Best Seller", "Special Discount"], image: repeatReplacementImages.packageGoa
   },
   {
     title: "Manali Snow Valley", destination: "Manali", category: ["Domestic", "Family", "Adventure", "Premium"], duration: "5N/6D", price: 14999,
     hotel: "Valley-view deluxe hotel", meals: "Breakfast and dinner", transport: "Volvo + local cab",
     sightseeing: "Solang Valley, Atal Tunnel, Mall Road", itinerary: "Day 1 Volvo | Day 2 Manali local | Day 3 Solang | Day 4 Atal Tunnel | Day 5 Leisure | Day 6 Return",
     inclusions: "Stay, meals, transfers, sightseeing", exclusions: "Adventure activity charges", cancellation: "Partial refund as per hotel and transport policy.",
-    dates: "Weekly departures", seats: 12, badges: ["Limited Seats"], image: destinationImages.Manali
+    dates: "Weekly departures", seats: 12, badges: ["Limited Seats"], image: repeatReplacementImages.packageManali
   },
   {
     title: "Kashmir Heaven Tour", destination: "Kashmir", category: ["Domestic", "Premium", "Honeymoon", "Family"], duration: "6N/7D", price: 24999,
     hotel: "Srinagar hotel + houseboat", meals: "Breakfast and dinner", transport: "Private cab",
     sightseeing: "Gulmarg, Pahalgam, Sonmarg, Dal Lake", itinerary: "Srinagar | Gulmarg | Pahalgam | Sonmarg | Houseboat | Return",
     inclusions: "Hotels, meals, cab, shikara ride", exclusions: "Flights, gondola tickets, union cabs", cancellation: "Seasonal cancellation charges may apply.",
-    dates: "Custom dates available", seats: 10, badges: ["Early Bird Offer"], image: destinationImages.Kashmir
+    dates: "Custom dates available", seats: 10, badges: ["Early Bird Offer"], image: repeatReplacementImages.packageKashmir
   },
   {
     title: "Kerala Backwater Bliss", destination: "Kerala", category: ["Domestic", "Honeymoon", "Family", "Premium"], duration: "5N/6D", price: 21999,
     hotel: "Munnar resort + Alleppey houseboat", meals: "Breakfast and houseboat meals", transport: "Private cab",
     sightseeing: "Munnar, Thekkady, Alleppey", itinerary: "Cochin | Munnar | Thekkady | Alleppey | Cochin",
     inclusions: "Stay, meals, cab, sightseeing", exclusions: "Flights, personal activities", cancellation: "Date changes subject to availability.",
-    dates: "Daily on request", seats: 14, badges: ["Best Seller"], image: destinationImages.Kerala
+    dates: "Daily on request", seats: 14, badges: ["Best Seller"], image: repeatReplacementImages.packageKerala
   },
   {
     title: "Rajasthan Royal Circuit", destination: "Rajasthan", category: ["Domestic", "Group", "Family", "Corporate"], duration: "6N/7D", price: 18999,
     hotel: "Heritage-style hotels", meals: "Breakfast included", transport: "Tempo traveller / coach",
     sightseeing: "Jaipur, Jodhpur, Udaipur, Pushkar", itinerary: "Jaipur | Jodhpur | Udaipur | Pushkar | Return",
     inclusions: "Hotels, breakfast, coach, guide support", exclusions: "Monument tickets and meals not mentioned", cancellation: "Group cancellation as per booking stage.",
-    dates: "Monthly fixed departures", seats: 22, badges: ["Group Deal"], image: destinationImages.Rajasthan
+    dates: "Monthly fixed departures", seats: 22, badges: ["Group Deal"], image: repeatReplacementImages.packageRajasthan
   },
   {
     title: "Ayodhya Varanasi Darshan", destination: "Ayodhya & Varanasi", category: ["Domestic", "Religious", "Budget", "School"], duration: "4N/5D", price: 8999,
     hotel: "Clean standard hotel", meals: "Breakfast and dinner", transport: "Bus / train assistance",
     sightseeing: "Ram Mandir, Kashi Vishwanath, Ganga Aarti", itinerary: "Ayodhya | Varanasi | Sarnath | Return",
     inclusions: "Stay, meals, transfers, coordinator", exclusions: "VIP darshan, personal donations", cancellation: "Seat transfer possible before final charting.",
-    dates: "Festival and weekend batches", seats: 30, badges: ["Limited Seats"], image: destinationImages.Varanasi
+    dates: "Festival and weekend batches", seats: 30, badges: ["Limited Seats"], image: repeatReplacementImages.packageVaranasi
   },
   {
     title: "Dubai City & Desert Holiday", destination: "Dubai", country: "UAE", category: ["International", "Family", "Group"], duration: "4N/5D", price: 64999,
@@ -240,7 +270,7 @@ const packages = [
     itinerary: "Day 1 Arrival and marina evening | Day 2 Dubai city tour and Burj Khalifa | Day 3 Desert safari | Day 4 Shopping and optional parks | Day 5 Return",
     inclusions: "Hotel, breakfast, airport transfers, sightseeing, visa documentation support", exclusions: "Flights, visa fee, tourism dirham, personal expenses", cancellation: "International supplier cancellation charges apply.",
     guidelines: "Valid passport, confirmed tickets and travel insurance recommended.", documents: "Passport, photo, PAN, bank statement, employment or business proof as applicable.",
-    passport: "Minimum 6 months validity from return date recommended.", currency: "UAE Dirham", weather: "Warm city weather; light clothes recommended.", dates: "Weekly departures", seats: 16, badges: ["Best Seller"], image: internationalImages.Dubai
+    passport: "Minimum 6 months validity from return date recommended.", currency: "UAE Dirham", weather: "Warm city weather; light clothes recommended.", dates: "Weekly departures", seats: 16, badges: ["Best Seller"], image: repeatReplacementImages.packageDubai
   },
   {
     title: "Bali Island Honeymoon", destination: "Bali", country: "Indonesia", category: ["International", "Honeymoon", "Couple"], duration: "5N/6D", price: 72999,
@@ -250,7 +280,7 @@ const packages = [
     itinerary: "Day 1 Arrival and room decoration | Day 2 Ubud and Kintamani | Day 3 Water sports and beach time | Day 4 Tanah Lot sunset | Day 5 Leisure | Day 6 Return",
     inclusions: "Hotel, breakfast, transfers, sightseeing, honeymoon decoration support", exclusions: "Flights, visa-on-arrival fee, personal expenses", cancellation: "Villa and flight cancellation as per supplier rules.",
     guidelines: "Carry passport, return tickets and hotel vouchers.", documents: "Passport, photos, tickets, hotel confirmation and insurance copy.",
-    passport: "Minimum 6 months validity from travel date.", currency: "Indonesian Rupiah", weather: "Tropical weather; light clothes and rain cover recommended.", dates: "Custom dates available", seats: 10, badges: ["Special Discount"], image: internationalImages.Bali
+    passport: "Minimum 6 months validity from travel date.", currency: "Indonesian Rupiah", weather: "Tropical weather; light clothes and rain cover recommended.", dates: "Custom dates available", seats: 10, badges: ["Special Discount"], image: repeatReplacementImages.packageBali
   },
   {
     title: "Thailand Fun Escape", destination: "Thailand", country: "Thailand", category: ["International", "Group", "Adventure"], duration: "5N/6D", price: 57999,
@@ -260,7 +290,7 @@ const packages = [
     itinerary: "Day 1 Bangkok to Pattaya | Day 2 Coral Island | Day 3 Leisure | Day 4 Bangkok city tour | Day 5 Shopping | Day 6 Return",
     inclusions: "Hotels, breakfast, transfers, island tour, city tour", exclusions: "Flights, visa fee, optional activities", cancellation: "Airline and hotel rules apply after confirmation.",
     guidelines: "Respect local guidelines and carry ID documents during tours.", documents: "Passport, photos, tickets, hotel vouchers and insurance.",
-    passport: "Minimum 6 months validity recommended.", currency: "Thai Baht", weather: "Humid tropical weather; pack comfortable clothes.", dates: "Monthly group departures", seats: 20, badges: ["Limited Seats"], image: internationalImages.Thailand
+    passport: "Minimum 6 months validity recommended.", currency: "Thai Baht", weather: "Humid tropical weather; pack comfortable clothes.", dates: "Monthly group departures", seats: 20, badges: ["Limited Seats"], image: repeatReplacementImages.packageThailand
   },
   {
     title: "Maldives Water Villa Break", destination: "Maldives", country: "Maldives", category: ["International", "Honeymoon", "Premium"], duration: "4N/5D", price: 119999,
@@ -270,7 +300,7 @@ const packages = [
     itinerary: "Day 1 Arrival at resort | Day 2 Beach villa leisure | Day 3 Water villa experience | Day 4 Optional cruise or snorkeling | Day 5 Return",
     inclusions: "Resort stay, selected meals, transfers, honeymoon freebies as per resort", exclusions: "Flights, green tax if not included, paid activities", cancellation: "Strict resort cancellation rules may apply.",
     guidelines: "Check resort meal plan and transfer timings before booking.", documents: "Passport, return tickets, resort voucher, insurance copy.",
-    passport: "Minimum 6 months validity recommended.", currency: "Maldivian Rufiyaa / USD accepted at resorts", weather: "Warm beach weather with seasonal showers.", dates: "Daily on request", seats: 8, badges: ["Best Seller"], image: internationalImages.Maldives
+    passport: "Minimum 6 months validity recommended.", currency: "Maldivian Rufiyaa / USD accepted at resorts", weather: "Warm beach weather with seasonal showers.", dates: "Daily on request", seats: 8, badges: ["Best Seller"], image: repeatReplacementImages.packageMaldives
   },
   {
     title: "Singapore Malaysia Explorer", destination: "Singapore & Malaysia", country: "Singapore / Malaysia", category: ["International", "Family", "Group"], duration: "6N/7D", price: 89999,
@@ -280,7 +310,7 @@ const packages = [
     itinerary: "Day 1 Singapore arrival | Day 2 City and Sentosa | Day 3 Universal optional | Day 4 Kuala Lumpur | Day 5 Genting | Day 6 Leisure | Day 7 Return",
     inclusions: "Hotels, breakfast, transfers, sightseeing and documentation support", exclusions: "Flights, visa fees, optional tickets", cancellation: "Supplier cancellation rules apply.",
     guidelines: "Carry confirmed hotel vouchers, tickets and sufficient funds.", documents: "Passport, photos, bank statement, employment proof and travel plan.",
-    passport: "Minimum 6 months validity required.", currency: "Singapore Dollar / Malaysian Ringgit", weather: "Warm, humid and suitable for light clothing.", dates: "Fixed and custom departures", seats: 18, badges: ["Early Bird Offer"], image: internationalImages.Singapore
+    passport: "Minimum 6 months validity required.", currency: "Singapore Dollar / Malaysian Ringgit", weather: "Warm, humid and suitable for light clothing.", dates: "Fixed and custom departures", seats: 18, badges: ["Early Bird Offer"], image: repeatReplacementImages.packageSingapore
   },
   {
     title: "Europe Dream Circuit", destination: "Europe", country: "France / Switzerland / Italy", category: ["International", "Premium", "Family"], duration: "9N/10D", price: 189999,
@@ -290,7 +320,7 @@ const packages = [
     itinerary: "Day 1 Paris | Day 2 Eiffel and city | Day 3 Switzerland | Day 4 Mt Titlis optional | Day 5 Lucerne | Day 6 Venice | Day 7 Florence/Pisa | Day 8 Rome | Day 9 Vatican optional | Day 10 Return",
     inclusions: "Hotels, breakfast, transfers, guided city tours, visa documentation support", exclusions: "Flights, visa fee, city tax, optional excursions", cancellation: "Strict international cancellation and visa-stage charges apply.",
     guidelines: "Apply early for Schengen visa and maintain document consistency.", documents: "Passport, photos, bank statement, ITR, employment proof, leave letter, insurance, tickets and hotel plan.",
-    passport: "Minimum 6 months validity and blank pages required.", currency: "Euro / Swiss Franc", weather: "Varies by country; layered clothing recommended.", dates: "Seasonal departures", seats: 24, badges: ["Limited Seats"], image: internationalImages.Europe
+    passport: "Minimum 6 months validity and blank pages required.", currency: "Euro / Swiss Franc", weather: "Varies by country; layered clothing recommended.", dates: "Seasonal departures", seats: 24, badges: ["Limited Seats"], image: repeatReplacementImages.packageEurope
   }
 ];
 
@@ -306,9 +336,14 @@ const visaServices = [
 ];
 
 const honeymoonPackages = [
-  ["Maldives Honeymoon", internationalImages.Maldives], ["Bali Honeymoon", internationalImages.Bali], ["Dubai Honeymoon", internationalImages.Dubai],
-  ["Thailand Honeymoon", internationalImages.Thailand], ["Singapore Honeymoon", internationalImages.Singapore], ["Mauritius Honeymoon", internationalImages.Mauritius],
-  ["Switzerland Honeymoon", internationalImages.Switzerland], ["Europe Honeymoon", internationalImages.Europe]
+  ["Maldives Honeymoon", repeatReplacementImages.honeymoonMaldives],
+  ["Bali Honeymoon", repeatReplacementImages.honeymoonBali],
+  ["Dubai Honeymoon", repeatReplacementImages.honeymoonDubai],
+  ["Thailand Honeymoon", repeatReplacementImages.honeymoonThailand],
+  ["Singapore Honeymoon", repeatReplacementImages.honeymoonSingapore],
+  ["Mauritius Honeymoon", repeatReplacementImages.honeymoonMauritius],
+  ["Switzerland Honeymoon", repeatReplacementImages.honeymoonSwitzerland],
+  ["Europe Honeymoon", repeatReplacementImages.honeymoonEurope]
 ];
 
 const gallery = [
@@ -338,19 +373,19 @@ const blogs = [
   {
     title: "Top 7 Weekend Trips from Indore",
     text: "Short, refreshing routes for families and friend groups.",
-    image: destinationImages["Indore Nearby"],
+    image: repeatReplacementImages.blogIndoreWeekend,
     details: "Weekend travellers from Indore can plan short breaks to Maheshwar, Mandu, Ujjain, Omkareshwar, Pachmarhi, Choral and nearby resort stays. Keep the itinerary light, start early, pre-book rooms during holidays and choose private transport for family comfort. RR Tourism can arrange pickup, hotel options, sightseeing and a relaxed return plan."
   },
   {
     title: "How to Plan a Budget Goa Tour",
     text: "Smart choices for hotels, transfers, meals and sightseeing.",
-    image: destinationImages.Goa,
+    image: repeatReplacementImages.blogGoa,
     details: "A budget Goa tour works best when dates are flexible, hotels are booked away from peak beach lanes and sightseeing is grouped by North Goa and South Goa routes. Plan breakfast-included stays, shared transfers where practical and keep one leisure day for beaches or cruise options. RR Tourism helps compare hotel categories, transport and activity add-ons before booking."
   },
   {
     title: "Best Season for Kashmir and Manali",
     text: "Snow, flowers, pleasant weather and what to pack.",
-    image: destinationImages.Kashmir,
+    image: repeatReplacementImages.blogKashmir,
     details: "Kashmir is loved in spring for flowers, summer for family sightseeing and winter for snow views. Manali is best for pleasant mountain weather from March to June and snow experiences during winter. Carry layers, comfortable shoes, ID proofs and keep buffer time during high season because weather can affect road movement."
   }
 ];
