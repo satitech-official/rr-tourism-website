@@ -449,7 +449,7 @@ function packageDetailsHtml(pkg) {
     <h3>Cancellation</h3><p>${pkg.cancellation}</p>
   </div>
   <div class="modal-actions">
-    <a class="btn primary" href="#contact" data-modal-close data-enquiry="${pkg.title}">Enquiry</a>
+    <a class="btn primary" href="#planner" data-modal-close data-enquiry="${pkg.title}">Enquiry</a>
     <button class="btn secondary" data-download="${pkg.title}">Download Itinerary</button>
     <a class="btn whatsapp" target="_blank" rel="noopener noreferrer" href="${whatsappUrl(packageWhatsAppMessage(pkg))}">WhatsApp Booking</a>
   </div>`;
@@ -471,11 +471,13 @@ function closeModal() {
 }
 
 function setPackageEnquiry(title) {
-  const message = `I want more information about ${title}. Please share availability, final price and itinerary.`;
-  const textarea = document.querySelector("#contactForm textarea");
-  if (textarea) textarea.value = message;
-  location.hash = "contact";
-  setTimeout(() => textarea?.focus(), 250);
+  const planner = document.getElementById("plannerForm");
+  const destination = planner?.querySelector('[name="destination"]');
+  const requirements = planner?.querySelector('[name="requirements"]');
+  if (destination && !destination.value.trim()) destination.value = title;
+  if (requirements) requirements.value = `I want more information about ${title}. Please share availability, final price and itinerary.`;
+  location.hash = "planner";
+  setTimeout(() => requirements?.focus(), 250);
 }
 
 function readBlobAsDataUrl(blob) {
@@ -514,12 +516,15 @@ async function downloadBrandedItinerary(title) {
 }
 
 function renderQuickPages() {
-  document.getElementById("quickPages").innerHTML = pageLinks.map(([label, href]) => `<a href="${href}">${label}</a>`).join("");
+  const quickPages = document.getElementById("quickPages");
+  if (!quickPages) return;
+  quickPages.innerHTML = pageLinks.map(([label, href]) => `<a href="${href}">${label}</a>`).join("");
 }
 
 function renderAbout() {
   document.getElementById("aboutFeatures").innerHTML = aboutFeatures.map(([title, text]) => `<div class="feature-pill"><strong>${title}</strong><span>${text}</span></div>`).join("");
-  document.getElementById("stats").innerHTML = stats.map(([label, target, suffix]) => `<div class="stat"><strong data-count="${target}">0</strong><span>${label} ${suffix}</span></div>`).join("");
+  const statsEl = document.getElementById("stats");
+  if (statsEl) statsEl.innerHTML = stats.map(([label, target, suffix]) => `<div class="stat"><strong data-count="${target}">0</strong><span>${label} ${suffix}</span></div>`).join("");
 }
 
 function renderServices() {
@@ -660,12 +665,12 @@ function renderHoneymoonPackages() {
 }
 
 function renderOffers() {
-  document.getElementById("offerGrid").innerHTML = offers.map((offer, i) => `
+  document.getElementById("offerGrid").innerHTML = offers.map((offer) => `
     <article class="offer-card reveal">
-      <span class="badge">${i % 2 ? "Special Discount" : "Early Bird Offer"}</span>
+      <span class="badge">Seasonal option</span>
       <h3>${offer}</h3>
-      <p>Save more with colorful seasonal departures from Mhow and Indore.</p>
-      <div class="countdown" data-hours="${36 + i * 7}"><span>00d</span><span>00h</span><span>00m</span></div>
+      <p>Ask for current departure dates, inclusions, availability and the final price before booking.</p>
+      <a class="btn secondary" href="#planner">Check Current Options</a>
     </article>`).join("");
 }
 
@@ -684,7 +689,7 @@ function renderHolyPlaces(filter = "All") {
         <p>${place.highlights}</p>
         <div class="price">From ${rupee(place.price)}</div>
         <div class="card-actions">
-          <a class="btn primary" href="#contact" data-enquiry="${place.name}">Send Enquiry</a>
+          <a class="btn primary" href="#planner" data-enquiry="${place.name}">Send Enquiry</a>
           <a class="btn whatsapp" target="_blank" rel="noopener noreferrer" href="${whatsappUrl(`Hello RR Tourism, I want information about ${place.name} holy place tour.`)}">WhatsApp</a>
         </div>
       </div>
@@ -707,7 +712,7 @@ function renderInternationalHolyPlaces(filter = "All") {
         <p>${place.highlights}</p>
         <div class="price">From ${rupee(place.price)}</div>
         <div class="card-actions">
-          <a class="btn primary" href="#contact" data-enquiry="${place.name}">Send Enquiry</a>
+          <a class="btn primary" href="#planner" data-enquiry="${place.name}">Send Enquiry</a>
           <a class="btn whatsapp" target="_blank" rel="noopener noreferrer" href="${whatsappUrl(`Hello RR Tourism, I want information about ${place.name}.`)}">WhatsApp</a>
         </div>
       </div>
@@ -809,25 +814,17 @@ function plannerWhatsAppMessage(form) {
     `Mobile: ${data.get("mobile") || "Not provided"}`,
     `Email: ${data.get("email") || "Not provided"}`,
     `Trip Scope: ${data.get("tripScope") || "Not selected"}`,
-    `Country: ${data.get("country") || "Not selected"}`,
-    `Departure City: ${data.get("departureCity") || "Not selected"}`,
-    `Passport: ${data.get("passport") || "Not selected"}`,
-    `Visa Required: ${data.get("visaRequired") || "Not selected"}`,
     `Starting Location: ${data.get("start") || "Not provided"}`,
     `Destination: ${data.get("destination") || "Not provided"}`,
-    `Travel Dates: ${data.get("dates") || "Flexible"}`,
-    `Duration: ${data.get("duration") || "Not provided"}`,
+    `Travel Dates / Month: ${data.get("dates") || "Flexible"}`,
     `Adults: ${data.get("adults") || "0"}`,
     `Children: ${data.get("children") || "0"}`,
     `Budget: ${data.get("budget") || "Not selected"}`,
     `Hotel: ${data.get("hotel") || "Not selected"}`,
-    `Flight: ${data.get("flight") || "Not selected"}`,
-    `Meal: ${data.get("meal") || "Not selected"}`,
-    `Transport: ${data.get("transport") || "Not selected"}`,
     `Trip Type: ${data.get("type") || "Not selected"}`,
     `Special Requirements: ${data.get("requirements") || "None"}`,
     "",
-    "Please share a suitable itinerary and price."
+    "Please share a suitable itinerary, current availability and final price."
   ];
   return lines.join("\n");
 }
@@ -916,7 +913,9 @@ function setupInteractions() {
 
   document.getElementById("prevReview").addEventListener("click", () => { reviewIndex = (reviewIndex + reviews.length - 1) % reviews.length; renderReview(); });
   document.getElementById("nextReview").addEventListener("click", () => { reviewIndex = (reviewIndex + 1) % reviews.length; renderReview(); });
-  setInterval(() => { reviewIndex = (reviewIndex + 1) % reviews.length; renderReview(); }, 5500);
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    setInterval(() => { reviewIndex = (reviewIndex + 1) % reviews.length; renderReview(); }, 6500);
+  }
 
   document.getElementById("faqList").addEventListener("click", e => {
     if (e.target.matches("button")) e.target.parentElement.classList.toggle("open");
@@ -938,7 +937,7 @@ function setupInteractions() {
       const url = whatsappUrl(`Hello RR Tourism,\nI want to send an enquiry.\n\nName: ${fields[0] || "Not provided"}\nMobile: ${fields[1] || "Not provided"}\nEmail: ${fields[2] || "Not provided"}\nMessage: ${fields[3] || "Not provided"}`);
       document.getElementById("contactMessage").innerHTML = `Thank you. <a href="${url}" target="_blank" rel="noopener noreferrer">Send this enquiry on WhatsApp</a>.`;
     }
-    if (form.id === "newsletterForm") alert("Subscribed to RR Tourism travel updates.");
+    if (form.id === "newsletterForm") alert("Please use WhatsApp to request the latest RR Tourism travel updates.");
     if (form.id === "heroSearch") location.hash = "packages";
   }));
 
@@ -979,6 +978,17 @@ function setupStaticIcons() {
   document.querySelectorAll(".star-icons").forEach(el => {
     if (!el.innerHTML.trim()) el.innerHTML = iconSvg.star.repeat(5);
   });
+  document.querySelectorAll("input, select, textarea").forEach((el, index) => {
+    if (!el.id) el.id = `rr-field-${index + 1}`;
+    if (!el.getAttribute("aria-label")) {
+      const label = el.closest("label")?.textContent?.trim() || el.getAttribute("placeholder") || el.selectedOptions?.[0]?.textContent || el.name || "Travel enquiry field";
+      el.setAttribute("aria-label", label.replace(/\s+/g, " ").trim());
+    }
+  });
+  const today = new Date().toISOString().slice(0, 10);
+  document.querySelectorAll('input[type="date"]').forEach(el => {
+    if (!el.min) el.min = today;
+  });
 }
 
 function setupMediaFallbacks() {
@@ -992,11 +1002,18 @@ function setupMediaFallbacks() {
   });
   const heroVideo = document.querySelector(".hero-video");
   if (heroVideo) {
-    heroVideo.autoplay = true;
     heroVideo.muted = true;
     heroVideo.loop = true;
     heroVideo.playsInline = true;
     heroVideo.poster = heroVideo.poster || fallbackTravelImage;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const smallScreen = window.matchMedia("(max-width: 680px)").matches;
+    const saveData = Boolean(navigator.connection?.saveData);
+    if (!reducedMotion && !smallScreen && !saveData) {
+      heroVideo.play().catch(() => {});
+    } else {
+      heroVideo.pause();
+    }
   }
 }
 
@@ -1114,8 +1131,8 @@ function init() {
   startCountdowns();
   updateWeather().catch(() => renderWeatherCards(fallbackWeather, "Live weather unavailable"));
   setInterval(() => updateWeather().catch(() => renderWeatherCards(fallbackWeather, "Live weather unavailable")), 900000);
-  new IntersectionObserver(animateCounters, { threshold: .4 }).observe(document.querySelector("[data-count]"));
-  document.querySelectorAll("[data-count]").forEach(el => new IntersectionObserver(animateCounters, { threshold: .4 }).observe(el));
+  const countEls = document.querySelectorAll("[data-count]");
+  countEls.forEach(el => new IntersectionObserver(animateCounters, { threshold: .4 }).observe(el));
   finishLoading();
 }
 
