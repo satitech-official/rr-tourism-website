@@ -303,7 +303,7 @@ button, input, select, textarea { font: inherit; }
 .hero-content {
   position: relative;
   max-width: 850px;
-  padding-bottom: 170px;
+  padding-bottom: 150px;
 }
 .eyebrow {
   margin: 0 0 12px;
@@ -343,6 +343,7 @@ h1 {
   box-shadow: 0 14px 30px rgba(23,48,82,.16);
 }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-actions .btn { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; }
 .btn, .hero-search button, .newsletter button {
   border: 0;
   border-radius: 999px;
@@ -362,6 +363,33 @@ h1 {
   backdrop-filter: blur(18px);
   box-shadow: var(--shadow);
 }
+.hero-trustbar {
+  position: absolute;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(-50%);
+  width: min(1040px, calc(100% - 32px));
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 14px;
+  border-radius: 24px;
+  color: var(--ink);
+}
+.hero-trustbar.reveal { transform: translate(-50%, 34px); }
+.hero-trustbar.reveal.visible { transform: translate(-50%, 0); }
+.hero-trustbar span {
+  min-height: 58px;
+  display: grid;
+  place-items: center;
+  padding: 10px 14px;
+  border-radius: 18px;
+  text-align: center;
+  color: #45607d;
+  background: rgba(255,255,255,.76);
+  line-height: 1.4;
+}
+.hero-trustbar strong { color: var(--royal); }
 .hero-search {
   position: absolute;
   left: 50%;
@@ -989,15 +1017,25 @@ textarea { min-height: 120px; resize: vertical; }
 .faq-item p { display: none; margin: 0; padding: 0 20px 18px; color: var(--muted); line-height: 1.65; }
 .faq-item.open p { display: block; }
 
-.contact-layout { display: grid; grid-template-columns: .8fr .9fr 1fr; gap: 20px; }
-.contact-card, .map {
-  min-height: 430px;
+.contact-layout { display: grid; grid-template-columns: .9fr .8fr 1fr; gap: 20px; align-items: stretch; }
+.contact-card, .contact-actions, .map {
+  min-height: 390px;
   border: 1px solid var(--line);
   border-radius: 30px;
   background: white;
   box-shadow: var(--shadow);
 }
-.contact-card { padding: 26px; }
+.contact-card, .contact-actions { padding: 26px; }
+.contact-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  background: linear-gradient(145deg, #ffffff, #f3fbff);
+}
+.contact-actions h3 { font-family: "Playfair Display", serif; font-size: clamp(28px, 3vw, 40px); color: var(--ink); }
+.contact-actions p:not(.eyebrow) { color: var(--muted); line-height: 1.65; }
+.contact-actions .btn { width: 100%; text-align: center; }
 .contact-logo {
   width: min(260px, 100%);
   height: 110px;
@@ -1027,6 +1065,8 @@ textarea { min-height: 120px; resize: vertical; }
 .newsletter form { display: flex; gap: 10px; }
 .newsletter input { width: min(360px, 52vw); margin: 0; }
 .newsletter button { background: white; color: var(--royal); }
+.newsletter .eyebrow { color: #fff5a7; margin-bottom: 8px; }
+.newsletter .btn { white-space: nowrap; box-shadow: 0 12px 26px rgba(0,0,0,.12); }
 
 .floating-whatsapp, .to-top {
   position: fixed;
@@ -1102,18 +1142,26 @@ footer p {
 @keyframes cursorSpin { to { transform: translate(-50%, -50%) rotate(360deg); } }
 
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   .loader-route span,
   .loader-mark,
   .loader-progress span,
-  .cursor-enabled.is-loading .cursor-ring {
+  .cursor-enabled.is-loading .cursor-ring,
+  h1 {
     animation: none;
   }
   .loader,
   .travel-cursor,
   .cursor-ring,
   .cursor-dot,
-  .cursor-label {
+  .cursor-label,
+  .reveal {
     transition-duration: .01ms;
+  }
+  .reveal,
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -1163,7 +1211,17 @@ footer p {
   .main-nav::-webkit-scrollbar-thumb { border-radius: 999px; background: rgba(36, 104, 255, .35); }
   .hero-search { grid-template-columns: repeat(2, 1fr); position: relative; bottom: auto; left: auto; transform: none; margin-top: -130px; color: var(--ink); }
   .hero-search.reveal, .hero-search.reveal.visible { transform: none; }
-  .hero-content { padding-bottom: 140px; }
+  .hero-trustbar {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    transform: none;
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 24px;
+  }
+  .hero-trustbar.reveal, .hero-trustbar.reveal.visible { transform: none; }
+  .hero-content { padding-bottom: 32px; }
   .hero-search button { grid-column: span 2; }
   .service-grid, .destination-grid, .offer-grid, .weather-grid { grid-template-columns: repeat(2, 1fr); }
   .package-grid, .blog-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1219,13 +1277,27 @@ footer p {
   }
   .dropdown-menu { padding: 6px; }
   .dropdown-menu a { padding: 7px 10px; }
-  .hero { padding-top: 110px; min-height: auto; }
-  .hero-content { max-width: min(100%, 320px); }
+  .hero {
+    padding-top: 110px;
+    min-height: auto;
+    background:
+      linear-gradient(110deg, rgba(20, 82, 170, .82), rgba(21, 200, 196, .38), rgba(255, 138, 42, .5)),
+      url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=76") center/cover no-repeat;
+  }
+  .hero-video { display: none; }
+  .hero-content { max-width: min(100%, 360px); }
   .hero h1 { font-size: clamp(34px, 10vw, 38px); max-width: 320px; }
   .hero-copy { max-width: 320px; font-size: 16px; }
-  .hero-actions { max-width: 320px; }
-  .hero-actions .btn { max-width: 100%; }
-  .hero-content { padding-bottom: 32px; }
+  .hero-actions { max-width: 360px; }
+  .hero-actions .btn { flex: 1 1 100%; max-width: 100%; }
+  .hero-content { padding-bottom: 20px; }
+  .hero-trustbar {
+    margin-top: 22px;
+    grid-template-columns: 1fr;
+    padding: 10px;
+    border-radius: 22px;
+  }
+  .hero-trustbar span { min-height: 48px; }
   .hero-search { margin-top: 20px; grid-template-columns: 1fr; border-radius: 24px; }
   .hero-search button { grid-column: span 1; }
   .hero-float { display: none; }
@@ -1310,3 +1382,21 @@ footer p {
 }
 
 
+
+
+/* Accessibility and interaction hardening */
+:focus-visible {
+  outline: 3px solid rgba(36, 104, 255, .42);
+  outline-offset: 3px;
+}
+a, button, input, select, textarea, summary {
+  -webkit-tap-highlight-color: transparent;
+}
+.compact-planner {
+  max-width: 1100px;
+}
+@media (max-width: 680px) {
+  .newsletter .btn { width: 100%; white-space: normal; text-align: center; }
+  .contact-card, .contact-actions, .map { min-height: auto; }
+  .map { min-height: 320px; }
+}
