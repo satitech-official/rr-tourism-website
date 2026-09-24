@@ -115,11 +115,31 @@
           <a class="btn whatsapp" target="_blank" rel="noopener noreferrer" href="https://wa.me/919009071697?text=Hello%20RR%20Tourism%2C%20I%20want%20more%20information%20about%20your%20tour%20packages.">WhatsApp Us</a>
         </div>
       </div>
-      <div class="hero-trustbar glass reveal" aria-label="RR Tourism trip planning highlights">
-        <span><strong>Mhow & Indore</strong> pickup support</span>
-        <span><strong>Customized</strong> itineraries</span>
-        <span><strong>Hotels • Transport • Travel assistance</strong></span>
-      </div>
+      <form class="hero-search glass reveal" id="heroSearch">
+        <label>Destination
+          <select name="destination" required>
+            <option value="">Choose place</option>
+            <option>Goa</option><option>Manali</option><option>Kashmir</option><option>Kerala</option><option>Ladakh</option><option>Rajasthan</option><option>Dubai</option><option>Bali</option><option>Maldives</option><option>Singapore</option>
+          </select>
+        </label>
+        <label>Travel Date
+          <input type="date" name="travelDate" required />
+        </label>
+        <label>Travellers
+          <input type="number" name="travellers" min="1" value="2" />
+        </label>
+        <label>Package Type
+          <select name="type">
+            <option>Family</option><option>Honeymoon</option><option>Group</option><option>Adventure</option><option>Religious</option><option>International</option>
+          </select>
+        </label>
+        <label>Budget Range
+          <select name="budget">
+            <option>Under Rs 10,000</option><option>Rs 10,000 - 25,000</option><option>Rs 25,000 - 50,000</option><option>Premium</option>
+          </select>
+        </label>
+        <button type="submit">Search Trips</button>
+      </form>
     </section>
 
     <section class="section about section-page" id="about">
