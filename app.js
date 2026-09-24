@@ -939,14 +939,13 @@ function setupMediaFallbacks() {
   });
   const heroVideo = document.querySelector(".hero-video");
   if (heroVideo) {
+    heroVideo.autoplay = true;
     heroVideo.muted = true;
     heroVideo.loop = true;
     heroVideo.playsInline = true;
     heroVideo.poster = heroVideo.poster || fallbackTravelImage;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const smallScreen = window.matchMedia("(max-width: 680px)").matches;
-    const saveData = Boolean(navigator.connection?.saveData);
-    if (!reducedMotion && !smallScreen && !saveData) {
+    if (!reducedMotion) {
       heroVideo.play().catch(() => {});
     } else {
       heroVideo.pause();
