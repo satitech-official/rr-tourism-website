@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://satitech-official.github.io/rr-tourism-website/sitemap.xml
