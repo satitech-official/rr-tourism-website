@@ -920,6 +920,18 @@ function setupInteractions() {
 
   document.querySelectorAll("form").forEach(form => form.addEventListener("submit", e => {
     e.preventDefault();
+    if (form.id === "heroSearch") {
+      const data = new FormData(form);
+      const destination = String(data.get("destination") || "").trim();
+      const type = String(data.get("type") || "All").trim();
+      const search = document.getElementById("packageSearch");
+      if (search) search.value = destination;
+      const filterButton = [...document.querySelectorAll("#packageFilters button")].find(btn => btn.dataset.filter === type);
+      document.querySelectorAll("#packageFilters button").forEach(btn => btn.classList.remove("active"));
+      (filterButton || document.querySelector('#packageFilters button[data-filter="All"]'))?.classList.add("active");
+      renderPackages(filterButton ? type : "All", destination);
+      location.hash = "packages";
+    }
     if (form.id === "plannerForm") {
       const url = whatsappUrl(plannerWhatsAppMessage(form));
       document.getElementById("plannerMessage").innerHTML = `Trip plan ready. <a href="${url}" target="_blank" rel="noopener noreferrer">Continue on WhatsApp</a>.`;
