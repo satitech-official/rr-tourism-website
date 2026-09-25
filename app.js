@@ -61,7 +61,7 @@ const destinationImages = {
   Pune: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=900&q=80",
   Mahabaleshwar: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80",
   Ayodhya: "https://images.unsplash.com/photo-1627894483216-2138af692e32?auto=format&fit=crop&w=900&q=80",
-  Varanasi: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=900&q=80",
+  Varanasi: "https://commons.wikimedia.org/wiki/Special:FilePath/Varanasi%2C%20India%2C%20Ganges%20River%2C%20ghats%2C%20temples%20and%20embankments.jpg",
   "Mathura-Vrindavan": "https://commons.wikimedia.org/wiki/Special:FilePath/Prem%20mandir%2C%20Vrindavan.jpg",
   Amritsar: "https://images.unsplash.com/photo-1609947017136-9daf32a5eb16?auto=format&fit=crop&w=900&q=80",
   Andaman: "https://images.unsplash.com/photo-1586500036706-41963de24d8b?auto=format&fit=crop&w=900&q=80",
