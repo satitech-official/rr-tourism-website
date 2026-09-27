@@ -1,5 +1,5 @@
-﻿const phone = "919009071697";
-const whatsappText = "Hello RR Tourism, I want more information about your tour packages.";
+﻿let phone = "919009071697";
+let whatsappText = "Hello RR Tourism, I want more information about your tour packages.";
 
 const iconSvg = {
   plane: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 16v-2L8 5V3.5C8 2.7 7.3 2 6.5 2S5 2.7 5 3.5V5L2 7v2l3-.9V14l-2 1.5V17l3.5-1 3.5 1v-1.5L8 14V8.1L21 16Z"/></svg>',
@@ -11,6 +11,52 @@ const iconSvg = {
 const serviceIcons = [iconSvg.plane, iconSvg.home, iconSvg.sun, iconSvg.grid];
 const starIcons = () => `<span class="star-icons" aria-label="5 star rating">${iconSvg.star.repeat(5)}</span>`;
 const internationalWhatsappText = "Hello RR Tourism, I want information about your international tour packages. Please share destination options, prices and available dates.";
+
+const RR_SUPABASE_URL = "https://ylobnofwmryltbzdtkla.supabase.co";
+const RR_SUPABASE_KEY = "sb_publishable_YqLFRfMUlW5hzTOh_50hQQ_Ntr0pYa9";
+let rrCmsContent = {};
+const cmsValue = (key, fallback) => rrCmsContent[key] ?? fallback;
+
+async function loadCmsData() {
+  try {
+    const response = await fetch(`${RR_SUPABASE_URL}/rest/v1/rr_content?select=key,data`, {
+      headers: { apikey: RR_SUPABASE_KEY, Authorization: `Bearer ${RR_SUPABASE_KEY}` },
+      cache: "no-store"
+    });
+    if (!response.ok) throw new Error("CMS request failed");
+    const rows = await response.json();
+    rrCmsContent = Object.fromEntries(rows.map(row => [row.key, row.data]));
+
+    const settings = rrCmsContent.site_settings || {};
+    if (settings.phone) phone = String(settings.phone).replace(/\D/g, "");
+    if (settings.whatsapp_text) whatsappText = settings.whatsapp_text;
+
+    const hero = document.querySelector("#home .hero-content");
+    if (hero) {
+      const eyebrow = hero.querySelector(".eyebrow");
+      const title = hero.querySelector("h1");
+      const copy = hero.querySelector(".hero-copy");
+      if (eyebrow && settings.hero_eyebrow) eyebrow.textContent = settings.hero_eyebrow;
+      if (title && settings.hero_title) title.textContent = settings.hero_title;
+      if (copy && settings.hero_copy) copy.textContent = settings.hero_copy;
+    }
+
+    if (settings.email) {
+      document.querySelectorAll('a[href^="mailto:"]').forEach(a => {
+        a.href = `mailto:${settings.email}`;
+        if ((a.textContent || "").includes("@")) a.textContent = settings.email;
+      });
+    }
+    if (settings.phone_display) {
+      document.querySelectorAll('a[href^="tel:"]').forEach(a => {
+        const digits = String(settings.phone || settings.phone_display).replace(/\D/g, "");
+        if (digits) a.href = `tel:+${digits}`;
+      });
+    }
+  } catch (error) {
+    console.warn("RR Tourism CMS fallback active", error);
+  }
+}
 
 const pageLinks = [
   ["Home", "#home"], ["About RR Tourism", "#about"], ["Tour Packages", "#packages"], ["Popular Destinations", "#destinations"],
@@ -516,7 +562,8 @@ function readBlobAsDataUrl(blob) {
 }
 
 async function downloadBrandedItinerary(title) {
-  const pkg = packages.find(item => item.title === title);
+  const packageSource = cmsValue("packages", packages);
+  const pkg = packageSource.find(item => item.title === title);
   if (!pkg) return;
   let logoData = window.RR_LOGO_DATA_URI || "assets/rr-tourism-logo.png";
   try {
@@ -549,13 +596,13 @@ function renderQuickPages() {
 }
 
 function renderAbout() {
-  document.getElementById("aboutFeatures").innerHTML = aboutFeatures.map(([title, text]) => `<div class="feature-pill"><strong>${title}</strong><span>${text}</span></div>`).join("");
+  document.getElementById("aboutFeatures").innerHTML = cmsValue("about_features", aboutFeatures).map(([title, text]) => `<div class="feature-pill"><strong>${title}</strong><span>${text}</span></div>`).join("");
   const statsEl = document.getElementById("stats");
-  if (statsEl) statsEl.innerHTML = stats.map(([label, target, suffix]) => `<div class="stat"><strong data-count="${target}">0</strong><span>${label} ${suffix}</span></div>`).join("");
+  if (statsEl) statsEl.innerHTML = cmsValue("stats", stats).map(([label, target, suffix]) => `<div class="stat"><strong data-count="${target}">0</strong><span>${label} ${suffix}</span></div>`).join("");
 }
 
 function renderServices() {
-  document.getElementById("servicesGrid").innerHTML = services.map((service, index) => `
+  document.getElementById("servicesGrid").innerHTML = cmsValue("services", services).map((service, index) => `
     <article class="service-card reveal">
       <div class="service-icon">${serviceIcons[index % serviceIcons.length]}</div>
       <strong>${service}</strong>
@@ -622,13 +669,14 @@ function renderPackageFilters() {
 
 function renderPackages(filter = "All", query = "") {
   const q = query.toLowerCase();
-  const list = packages.filter(pkg => (filter === "All" || pkg.category.includes(filter)) && JSON.stringify(pkg).toLowerCase().includes(q));
+  const packageSource = cmsValue("packages", packages);
+  const list = packageSource.filter(pkg => (filter === "All" || pkg.category.includes(filter)) && JSON.stringify(pkg).toLowerCase().includes(q));
   document.getElementById("packageGrid").innerHTML = list.map(packageCard).join("") || `<p>No packages found. Try another filter.</p>`;
   observeReveals();
 }
 
 function renderDestinations() {
-  document.getElementById("destinationGrid").innerHTML = destinations.map(dest => `
+  document.getElementById("destinationGrid").innerHTML = cmsValue("destinations", destinations).map(dest => `
     <article class="destination-card reveal">
       <div class="badge-row"><span class="badge">${dest.duration}</span></div>
       <img src="${dest.image}" alt="${dest.name}" loading="lazy" />
@@ -646,7 +694,7 @@ function renderDestinations() {
 }
 
 function renderInternationalDestinations() {
-  document.getElementById("internationalGrid").innerHTML = internationalDestinations.map(dest => `
+  document.getElementById("internationalGrid").innerHTML = cmsValue("international_destinations", internationalDestinations).map(dest => `
     <article class="destination-card reveal">
       <div class="badge-row"><span class="badge">${dest.duration}</span></div>
       <img src="${dest.image}" alt="${dest.name}" loading="lazy" />
@@ -664,7 +712,7 @@ function renderInternationalDestinations() {
 }
 
 function renderVisaServices() {
-  document.getElementById("visaGrid").innerHTML = visaServices.map((service, index) => `
+  document.getElementById("visaGrid").innerHTML = cmsValue("visa_services", visaServices).map((service, index) => `
     <article class="service-card reveal">
       <div class="service-icon">${serviceIcons[index % serviceIcons.length]}</div>
       <strong>${service}</strong>
@@ -674,7 +722,7 @@ function renderVisaServices() {
 
 function renderHoneymoonPackages() {
   const highlights = "Couple-friendly hotels | Private airport transfers | Candlelight dinner | Romantic room decoration | Island tours | Couple activities | Personalized honeymoon itinerary";
-  document.getElementById("honeymoonGrid").innerHTML = honeymoonPackages.map(([title, image], index) => `
+  document.getElementById("honeymoonGrid").innerHTML = cmsValue("honeymoon_packages", honeymoonPackages).map(([title, image], index) => `
     <article class="package-card reveal">
       <div class="badge-row"><span class="badge">${index % 2 ? "Limited Seats" : "Best Seller"}</span></div>
       <img src="${image}" alt="${title}" loading="lazy" />
@@ -692,7 +740,7 @@ function renderHoneymoonPackages() {
 }
 
 function renderOffers() {
-  document.getElementById("offerGrid").innerHTML = offers.map((offer) => `
+  document.getElementById("offerGrid").innerHTML = cmsValue("offers", offers).map((offer) => `
     <article class="offer-card reveal">
       <span class="badge">Seasonal option</span>
       <h3>${offer}</h3>
@@ -703,9 +751,10 @@ function renderOffers() {
 
 
 function renderHolyPlaces(filter = "All") {
-  const filters = ["All", ...new Set(holyPlaces.map(place => place.faith))];
+  const holySource = cmsValue("holy_places", holyPlaces);
+  const filters = ["All", ...new Set(holySource.map(place => place.faith))];
   document.getElementById("holyFilters").innerHTML = filters.map((faith, index) => `<button class="${(filter === faith || (filter === "All" && index === 0)) ? "active" : ""}" data-holy="${faith}">${faith === "All" ? "All Holy Places" : faith + " Places"}</button>`).join("");
-  const list = filter === "All" ? holyPlaces : holyPlaces.filter(place => place.faith === filter);
+  const list = filter === "All" ? holySource : holySource.filter(place => place.faith === filter);
   document.getElementById("holyGrid").innerHTML = list.map(place => `
     <article class="destination-card reveal">
       <div class="badge-row"><span class="badge">${place.faith}</span></div>
@@ -726,9 +775,10 @@ function renderHolyPlaces(filter = "All") {
 
 
 function renderInternationalHolyPlaces(filter = "All") {
-  const filters = ["All", ...new Set(internationalHolyPlaces.map(place => place.faith))];
+  const holySource = cmsValue("international_holy_places", internationalHolyPlaces);
+  const filters = ["All", ...new Set(holySource.map(place => place.faith))];
   document.getElementById("internationalHolyFilters").innerHTML = filters.map((faith, index) => `<button class="${(filter === faith || (filter === "All" && index === 0)) ? "active" : ""}" data-international-holy="${faith}">${faith === "All" ? "All International Holy Trips" : faith + " Trips"}</button>`).join("");
-  const list = filter === "All" ? internationalHolyPlaces : internationalHolyPlaces.filter(place => place.faith === filter);
+  const list = filter === "All" ? holySource : holySource.filter(place => place.faith === filter);
   document.getElementById("internationalHolyGrid").innerHTML = list.map(place => `
     <article class="destination-card reveal">
       <div class="badge-row"><span class="badge">International</span><span class="badge">${place.faith}</span></div>
@@ -748,9 +798,10 @@ function renderInternationalHolyPlaces(filter = "All") {
 }
 
 function renderGallery(filter = "All") {
-  const categories = ["All", ...new Set(gallery.map(item => item[0]))];
+  const gallerySource = cmsValue("gallery", gallery);
+  const categories = ["All", ...new Set(gallerySource.map(item => item[0]))];
   document.getElementById("galleryFilters").innerHTML = categories.map((cat, i) => `<button class="${(filter === cat || (filter === "All" && i === 0)) ? "active" : ""}" data-gallery="${cat}">${cat}</button>`).join("");
-  const list = filter === "All" ? gallery : gallery.filter(item => item[0] === filter);
+  const list = filter === "All" ? gallerySource : gallerySource.filter(item => item[0] === filter);
   document.getElementById("galleryGrid").innerHTML = list.map(([cat, image, alt], i) => `
     <div class="gallery-item reveal" data-image="${image}">
       <img src="${image}" alt="${alt || `${cat} by RR Tourism`}" loading="lazy" />
@@ -760,10 +811,10 @@ function renderGallery(filter = "All") {
 }
 
 function renderBlogWeatherFaq() {
-  document.getElementById("blogGrid").innerHTML = blogs.map((blog, index) => `
+  document.getElementById("blogGrid").innerHTML = cmsValue("blogs", blogs).map((blog, index) => `
     <article class="blog-card reveal"><img src="${blog.image}" alt="${blog.title}" loading="lazy"><div class="card-body"><h3>${blog.title}</h3><p>${blog.text}</p><button class="btn secondary" data-blog="${index}">Read Trip</button></div></article>`).join("");
   renderWeatherCards(fallbackWeather, "Loading live weather...");
-  document.getElementById("faqList").innerHTML = faqs.map(([q, a], index) => `<div class="faq-item reveal"><button type="button" aria-expanded="false" aria-controls="faq-answer-${index}">${q}</button><p id="faq-answer-${index}">${a}</p></div>`).join("");
+  document.getElementById("faqList").innerHTML = cmsValue("faqs", faqs).map(([q, a], index) => `<div class="faq-item reveal"><button type="button" aria-expanded="false" aria-controls="faq-answer-${index}">${q}</button><p id="faq-answer-${index}">${a}</p></div>`).join("");
 }
 
 function renderWeatherCards(items, status = "Live weather") {
@@ -788,10 +839,12 @@ async function updateWeather() {
 
 function setupBooking() {
   const select = document.getElementById("bookingPackage");
-  select.innerHTML = `<option value="">Select a tour package</option>` + packages.map((pkg, i) => `<option value="${i}">${pkg.title} - ${rupee(pkg.price)}</option>`).join("");
-  document.getElementById("internationalDestination").innerHTML += internationalDestinations.map(dest => `<option>${dest.name}</option>`).join("");
+  const packageSource = cmsValue("packages", packages);
+  const internationalSource = cmsValue("international_destinations", internationalDestinations);
+  select.innerHTML = `<option value="">Select a tour package</option>` + packageSource.map((pkg, i) => `<option value="${i}">${pkg.title} - ${rupee(pkg.price)}</option>`).join("");
+  document.getElementById("internationalDestination").innerHTML += internationalSource.map(dest => `<option>${dest.name}</option>`).join("");
   const buildBookingMessage = () => {
-    const pkg = packages[select.value];
+    const pkg = packageSource[select.value];
     return `Hello RR Tourism,\nI want to submit a booking enquiry.\n\nBooking Type: ${document.getElementById("bookingScope").value}\nPackage: ${pkg ? pkg.title : "Not selected"}\nInternational Destination: ${document.getElementById("internationalDestination").value || "Not selected"}\nTravel Date: ${document.getElementById("bookingDate").value || "Not selected"}\nLead Traveller: ${document.getElementById("travellerName").value || "Not provided"}\nMobile: ${document.getElementById("travellerPhone").value || "Not provided"}\nPickup: ${document.getElementById("pickup").value}\nRoom: ${document.getElementById("room").selectedOptions[0].textContent}\nFlight: ${document.getElementById("flightNeed").selectedOptions[0].textContent}\nTransfer: ${document.getElementById("transferNeed").selectedOptions[0].textContent}\nInsurance: ${document.getElementById("insuranceNeed").selectedOptions[0].textContent}\nPassport Status: ${document.getElementById("passportStatus").value || "Not provided"}\nVisa Status: ${document.getElementById("visaStatus").value}\nEstimate: ${document.getElementById("bookingTotal").textContent}\n\nPlease confirm availability and final price.`;
   };
   const updateWhatsApp = () => {
@@ -946,12 +999,12 @@ function setupInteractions() {
   document.body.addEventListener("click", e => {
     if (e.target.dataset.download) downloadBrandedItinerary(e.target.dataset.download);
     if (e.target.dataset.packageDetails) {
-      const pkg = packages.find(item => item.title === e.target.dataset.packageDetails);
+      const pkg = cmsValue("packages", packages).find(item => item.title === e.target.dataset.packageDetails);
       if (pkg) openModal(packageDetailsHtml(pkg));
     }
     if (e.target.dataset.enquiry) setPackageEnquiry(e.target.dataset.enquiry);
     if (e.target.dataset.blog) {
-      const blog = blogs[Number(e.target.dataset.blog)];
+      const blog = cmsValue("blogs", blogs)[Number(e.target.dataset.blog)];
       if (blog) openModal(`<div class="modal-header"><img src="${blog.image}" alt="${escapeHtml(blog.title)}" /><div><p class="eyebrow">Travel Blog & Tips</p><h2>${blog.title}</h2><p>${blog.text}</p></div></div><div class="modal-copy"><p>${blog.details}</p><a class="btn whatsapp" target="_blank" rel="noopener noreferrer" href="${whatsappUrl(`Hello RR Tourism, I read ${blog.title}. Please help me plan a trip.`)}">Plan on WhatsApp</a></div>`);
     }
   });
@@ -1089,7 +1142,8 @@ function finishLoading() {
   setTimeout(hideLoader, 2400);
 }
 
-function init() {
+async function init() {
+  await loadCmsData();
   setupCustomCursor();
   renderQuickPages();
   renderAbout();
