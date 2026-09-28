@@ -1,7 +1,6 @@
-const SUPABASE_URL="https://ylobnofwmryltbzdtkla.supabase.co";
-const SUPABASE_KEY="sb_publishable_YqLFRfMUlW5hzTOh_50hQQ_Ntr0pYa9";
+const ADMIN_ENDPOINT="https://ylobnofwmryltbzdtkla.supabase.co/functions/v1/rr-admin";
 const ADMIN_EMAIL="ramiz.king15@gmail.com";
-const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+let adminToken=window.sessionStorage.getItem("rr-admin-token")||"";
 
 const sections=[
   ["site_settings","General Settings","Hero, contact details and primary website settings."],
@@ -43,9 +42,14 @@ function showApp(){loginView.classList.add("hidden");appView.classList.remove("h
 function setStatus(text,type=""){saveStatus.textContent=text;saveStatus.className="save-status "+type}
 
 async function loadContent(){
-  const {data,error}=await client.from("rr_content").select("key,data,updated_at").order("key");
-  if(error) throw error;
-  content=Object.fromEntries((data||[]).map(row=>[row.key,row.data]));
+  const response=await fetch(ADMIN_ENDPOINT,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({action:"load",token:adminToken})
+  });
+  const result=await response.json().catch(()=>({}));
+  if(!response.ok) throw new Error(result.error||"Could not load admin content.");
+  content=Object.fromEntries((result.rows||[]).map(row=>[row.key,row.data]));
 }
 
 function buildNav(){
@@ -90,8 +94,13 @@ async function saveCurrent(){
     }else{
       data=JSON.parse(jsonEditor.value);
     }
-    const {error}=await client.from("rr_content").upsert({key:currentKey,data,updated_at:new Date().toISOString()},{onConflict:"key"});
-    if(error) throw error;
+    const response=await fetch(ADMIN_ENDPOINT,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({action:"save",token:adminToken,key:currentKey,data})
+    });
+    const result=await response.json().catch(()=>({}));
+    if(!response.ok) throw new Error(result.error||"Could not save changes.");
     content[currentKey]=data;
     setStatus("Saved. This content is now connected to the live website.","ok");
   }catch(error){
@@ -111,22 +120,21 @@ loginForm.addEventListener("submit",async e=>{
   const email=emailEl.value.trim().toLowerCase();
   const password=passwordEl.value;
   if(email!==ADMIN_EMAIL){loginMessage.textContent="This account is not authorized.";return}
-  let {data,error}=await client.auth.signInWithPassword({email,password});
-  if(error){
-    const signup=await client.auth.signUp({email,password});
-    if(signup.data?.session){
-      data=signup.data;error=null;
-    }else if(!signup.error && signup.data?.user){
-      loginMessage.textContent="Admin account initialized. Confirm the verification email once, then sign in.";
-      return;
-    }else{
-      loginMessage.textContent="Incorrect email or password.";
-      return;
-    }
-  }
-  if(data?.session){
+  try{
+    const response=await fetch(ADMIN_ENDPOINT,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({action:"login",email,password})
+    });
+    const result=await response.json().catch(()=>({}));
+    if(!response.ok || !result.token) throw new Error(result.error||"Incorrect email or password.");
+    adminToken=result.token;
+    window.sessionStorage.setItem("rr-admin-token",adminToken);
     loginMessage.textContent="";
+    passwordEl.value="";
     await startApp();
+  }catch(error){
+    loginMessage.textContent=error.message||"Incorrect email or password.";
   }
 });
 
@@ -137,7 +145,7 @@ sectionNav.addEventListener("click",e=>{const b=e.target.closest("[data-key]");i
 document.getElementById("saveBtn").addEventListener("click",saveCurrent);
 document.getElementById("reloadBtn").addEventListener("click",async()=>{await loadContent();renderEditor();setStatus("Reloaded from live CMS.","ok")});
 document.getElementById("formatBtn").addEventListener("click",()=>{try{jsonEditor.value=JSON.stringify(JSON.parse(jsonEditor.value),null,2);setStatus("JSON formatted.","ok")}catch(e){setStatus("JSON is invalid: "+e.message,"error")}});
-document.getElementById("logout").addEventListener("click",async()=>{await client.auth.signOut();passwordEl.value="";showLogin()});
+document.getElementById("logout").addEventListener("click",()=>{adminToken="";window.sessionStorage.removeItem("rr-admin-token");passwordEl.value="";showLogin()});
 document.getElementById("menuBtn").addEventListener("click",()=>sidebar.classList.toggle("open"));
 
-client.auth.getSession().then(({data})=>{if(data.session?.user?.email?.toLowerCase()===ADMIN_EMAIL)startApp().catch(()=>showLogin());else showLogin()});
+if(adminToken){startApp().catch(()=>{adminToken="";window.sessionStorage.removeItem("rr-admin-token");showLogin()});}else{showLogin();}
